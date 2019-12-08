@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 import info.bati11.whenit.R
 
@@ -19,7 +21,12 @@ class EventFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event, container, false)
+        val view = inflater.inflate(R.layout.fragment_event, container, false)
+        val floatingActionButton = view.findViewById<FloatingActionButton>(R.id.fab)
+        floatingActionButton.setOnClickListener {
+            view.findNavController().navigate(R.id.action_eventFragment_to_eventCreateFragment)
+        }
+        return view
     }
 
 }
