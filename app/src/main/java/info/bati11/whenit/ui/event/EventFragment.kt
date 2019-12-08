@@ -24,7 +24,7 @@ class EventFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_event, container, false)
         val floatingActionButton = view.findViewById<FloatingActionButton>(R.id.fab)
         floatingActionButton.setOnClickListener {
-            view.findNavController().navigate(R.id.action_eventFragment_to_eventCreateFragment)
+            view.findNavController().navigate(EventFragmentDirections.actionEventFragmentToEventCreateFragment())
         }
         return view
     }
