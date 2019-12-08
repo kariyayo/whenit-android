@@ -2,12 +2,11 @@ package info.bati11.whenit.ui.event
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-import info.bati11.whenit.R
+import androidx.fragment.app.Fragment
+import info.bati11.whenit.databinding.FragmentEventCreateBinding
 
 /**
  * A simple [Fragment] subclass.
@@ -18,8 +17,7 @@ class EventCreateFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event_create, container, false)
+        return FragmentEventCreateBinding.inflate(inflater).root
     }
 
 }
