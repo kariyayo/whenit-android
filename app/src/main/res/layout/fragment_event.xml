@@ -6,6 +6,7 @@
     tools:context=".ui.event.EventFragment">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="info.bati11.whenit.ui.event.EventViewModel" />
@@ -21,7 +22,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="@{viewModel.event != null ? View.VISIBLE : View.GONE}"
                 android:text="@{viewModel.event.title}" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="@{viewModel.event == null ? View.VISIBLE : View.GONE}"
+                android:text="Hello!" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
