@@ -1,4 +1,4 @@
-package info.bati11.whenit.ui.event
+package info.bati11.whenit.ui.event_create
 
 
 import android.os.Bundle

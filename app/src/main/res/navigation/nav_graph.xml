@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/eventCreateFragment"
-        android:name="info.bati11.whenit.ui.event.EventCreateFragment"
+        android:name="info.bati11.whenit.ui.event_create.EventCreateFragment"
         android:label="fragment_event_create"
         tools:layout="@layout/fragment_event_create" >
         <action
