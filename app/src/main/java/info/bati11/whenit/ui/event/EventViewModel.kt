@@ -10,6 +10,18 @@ class EventViewModel(application: Application) : AndroidViewModel(application) {
     private val eventRepository = EventRepository(getEventDatabase(application))
     val event: LiveData<Event?> = eventRepository.event
 
+    private val _navigateToEventCreate = MutableLiveData<Boolean>()
+    val navigateToEventCreate: LiveData<Boolean>
+        get() = _navigateToEventCreate
+
+    fun onFabClicked() {
+        _navigateToEventCreate.value = true
+    }
+
+    fun onNavigatedToEventCreate() {
+        _navigateToEventCreate.value = false
+    }
+
     class Factory(val application: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(EventViewModel::class.java)) {

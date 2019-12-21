@@ -39,7 +39,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_margin="@dimen/fab_margin"
+            android:onClick="@{() -> viewModel.onFabClicked()}"
             app:srcCompat="@drawable/ic_add_black_24dp" />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>
