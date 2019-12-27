@@ -11,9 +11,13 @@ data class EventEntity(
 
     val title: String,
 
-    val yyyy: Int,
+    val year: Int,
 
-    val mmdd: Int,
+    // 1-12
+    val month: Int,
+
+    // 1-31
+    val dayOfMonth: Int,
 
     val createdAt: Long
 )

@@ -23,7 +23,8 @@ class EventFragment : Fragment() {
         val binding = FragmentEventBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
-        val viewModel = ViewModelProviders.of(this, EventViewModel.Factory(activity!!.application)).get(EventViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this, EventViewModel.Factory(activity!!.application))
+            .get(EventViewModel::class.java)
         binding.viewModel = viewModel
 
         viewModel.navigateToEventCreate.observe(viewLifecycleOwner, Observer {
