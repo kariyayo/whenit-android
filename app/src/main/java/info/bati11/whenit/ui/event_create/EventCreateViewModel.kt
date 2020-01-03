@@ -1,7 +1,10 @@
 package info.bati11.whenit.ui.event_create
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import info.bati11.whenit.R
 import info.bati11.whenit.database.getEventDatabase
 import info.bati11.whenit.domain.Event
@@ -13,8 +16,10 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
+import javax.inject.Inject
 
-class EventCreateViewModel(application: Application) : AndroidViewModel(application) {
+class EventCreateViewModel @Inject constructor(application: Application) :
+    AndroidViewModel(application) {
     private val viewModelJob = SupervisorJob()
     private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
@@ -98,12 +103,4 @@ class EventCreateViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
-    class Factory(val application: Application) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(EventCreateViewModel::class.java)) {
-                return EventCreateViewModel(application) as T
-            }
-            throw IllegalArgumentException("Unable to construct viewmodel")
-        }
-    }
 }

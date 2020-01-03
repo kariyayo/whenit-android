@@ -1,13 +1,17 @@
 package info.bati11.whenit.ui.event
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import info.bati11.whenit.database.getEventDatabase
 import info.bati11.whenit.domain.Event
 import info.bati11.whenit.repository.EventRepository
 import timber.log.Timber
+import javax.inject.Inject
 
-class EventViewModel(application: Application) : AndroidViewModel(application) {
+class EventViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
     private val eventRepository = EventRepository(getEventDatabase(application))
     val event: LiveData<Event?> = eventRepository.event
     val eventLoaded: LiveData<Boolean> = Transformations.map(event) { true }
@@ -37,12 +41,4 @@ class EventViewModel(application: Application) : AndroidViewModel(application) {
         _navigateToEventCreate.value = false
     }
 
-    class Factory(val application: Application) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(EventViewModel::class.java)) {
-                return EventViewModel(application) as T
-            }
-            throw IllegalArgumentException("Unable to construct viewmodel")
-        }
-    }
 }

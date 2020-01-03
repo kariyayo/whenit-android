@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import info.bati11.whenit.Application
 import info.bati11.whenit.databinding.FragmentEventBinding
 
 /**
@@ -24,8 +25,10 @@ class EventFragment : Fragment() {
         val binding = FragmentEventBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
-        val viewModel = ViewModelProviders.of(this, EventViewModel.Factory(activity!!.application))
-            .get(EventViewModel::class.java)
+        val viewModelFactory =
+            (activity!!.application as Application).appComponent.viewModelFactory()
+        val viewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(EventViewModel::class.java)
         binding.viewModel = viewModel
 
         viewModel.navigateToEventCreate.observe(viewLifecycleOwner, Observer {
