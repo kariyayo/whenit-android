@@ -9,8 +9,10 @@
     <string name="close_button_content_description">close button</string>
     <string name="label_save_button">SAVE</string>
     <string name="input_helper_text_required">Required</string>
-    <string name="yearsPostfix">years</string>
-    <string name="daysPostfix">days</string>
-    <string name="titlePrefix">from</string>
-    <string name="textMore">more</string>
+    <string name="years_postfix">years</string>
+    <string name="days_postfix">days</string>
+    <string name="title_prefix">from</string>
+    <string name="text_more">more</string>
+    <string name="get_started_header">イベントを登録しよう</string>
+    <string name="get_started_description">忘れたくない、すぐに思い出したい大切なイベントを登録しましょう。登録すればいつでもすぐに確認することができます。</string>
 </resources>
