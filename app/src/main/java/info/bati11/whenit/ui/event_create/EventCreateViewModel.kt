@@ -5,12 +5,12 @@ import androidx.lifecycle.*
 import info.bati11.whenit.R
 import info.bati11.whenit.database.getEventDatabase
 import info.bati11.whenit.domain.Event
+import info.bati11.whenit.domain.EventDate.toLocalDate
 import info.bati11.whenit.repository.EventRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
 
@@ -37,10 +37,8 @@ class EventCreateViewModel(application: Application) : AndroidViewModel(applicat
 
     private val _formDateInMilli = MutableLiveData<Long>()
     val formDate: LiveData<String>
-        get() = Transformations.map(_formDateInMilli) { epochTimeInMilli: Long ->
-            val epochDay = toEpochDay(epochTimeInMilli)
-            LocalDate.ofEpochDay(epochDay)
-                .format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))
+        get() = Transformations.map(_formDateInMilli) {
+            toLocalDate(it).format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))
         }
     private val _formDateErrMsg = MutableLiveData<String>()
     val formDateErrMsg: LiveData<String>
@@ -53,7 +51,7 @@ class EventCreateViewModel(application: Application) : AndroidViewModel(applicat
             val dateInMilliValue = _formDateInMilli.value ?: 0L
             _formDateErrMsg.value = if (dateInMilliValue == 0L) errorMessageRequired else null
             if (_formTitleErrMsg.value == null && _formDateErrMsg.value == null) {
-                val localDate = LocalDate.ofEpochDay(toEpochDay(dateInMilliValue))
+                val localDate = toLocalDate(dateInMilliValue)
                 eventRepository.add(
                     Event(
                         id = null,
@@ -99,8 +97,6 @@ class EventCreateViewModel(application: Application) : AndroidViewModel(applicat
             _formDateErrMsg.value = null
         }
     }
-
-    private fun toEpochDay(epochTime: Long): Long = epochTime / 1000 / 60 / 60 / 24
 
     class Factory(val application: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

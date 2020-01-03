@@ -9,4 +9,8 @@
     <string name="close_button_content_description">close button</string>
     <string name="label_save_button">SAVE</string>
     <string name="input_helper_text_required">Required</string>
+    <string name="yearsPostfix">years</string>
+    <string name="daysPostfix">days</string>
+    <string name="titlePrefix">from</string>
+    <string name="textMore">more</string>
 </resources>
