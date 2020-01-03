@@ -23,7 +23,7 @@
             android:orientation="vertical"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:visibility="@{viewModel.event == null ? View.VISIBLE : View.GONE}"
+            android:visibility="@{(viewModel.eventLoaded &amp;&amp; viewModel.event == null) ? View.VISIBLE : View.GONE}"
             tools:visibility="visible">
 
             <TextView
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAlignment="gravity"
-            android:visibility="@{viewModel.event != null ? View.VISIBLE : View.GONE}"
+            android:visibility="@{(viewModel.eventLoaded &amp;&amp; viewModel.event) != null ? View.VISIBLE : View.GONE}"
             tools:visibility="gone">
 
             <com.google.android.material.card.MaterialCardView

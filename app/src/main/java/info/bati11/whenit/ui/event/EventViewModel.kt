@@ -10,6 +10,7 @@ import timber.log.Timber
 class EventViewModel(application: Application) : AndroidViewModel(application) {
     private val eventRepository = EventRepository(getEventDatabase(application))
     val event: LiveData<Event?> = eventRepository.event
+    val eventLoaded: LiveData<Boolean> = Transformations.map(event) { true }
     val yearsFromEvent: LiveData<String> = Transformations.map(event) { ev ->
         ev?.years(System.currentTimeMillis())?.toString() ?: ""
     }
