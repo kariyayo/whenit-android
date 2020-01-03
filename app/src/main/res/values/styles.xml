@@ -19,7 +19,7 @@
 
     <style name="AppTheme.PrimaryTitle">
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">30sp</item>
+        <item name="android:textSize">36sp</item>
         <item name="android:textStyle">bold</item>
     </style>
     <style name="AppTheme.PrimarySubTitle">
