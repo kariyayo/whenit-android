@@ -30,9 +30,9 @@ class EventViewModel @Inject constructor(application: Application) : AndroidView
     val navigateToEventCreate: LiveData<Boolean>
         get() = _navigateToEventCreate
 
-    private val _showEventMenu = MutableLiveData<Long?>()
-    val showEventMenu: LiveData<Long?>
-        get() = _showEventMenu
+    private val _showSelectedEventMenu = MutableLiveData<Event?>()
+    val showSelectedEventMenu: LiveData<Event?>
+        get() = _showSelectedEventMenu
 
     fun loadEvents(date: LocalDate) {
         uiScope.launch {
@@ -40,13 +40,13 @@ class EventViewModel @Inject constructor(application: Application) : AndroidView
         }
     }
 
-    fun onCardMenuClicked(eventId: Long) {
-        Timber.i("onCardMenuClicked. eventId: ${eventId}")
-        _showEventMenu.value = eventId
+    fun displayEventMenu(event: Event) {
+        Timber.i("onCardMenuClicked. event: ${event}")
+        _showSelectedEventMenu.value = event
     }
 
-    fun onShowedEventMenu() {
-        _showEventMenu.value = null
+    fun displayEventMenuComplete() {
+        _showSelectedEventMenu.value = null
     }
 
     fun onFabClicked() {

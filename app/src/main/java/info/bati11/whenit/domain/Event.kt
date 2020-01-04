@@ -1,10 +1,19 @@
 package info.bati11.whenit.domain
 
+import android.os.Parcelable
 import info.bati11.whenit.domain.EventDate.toEpochDay
+import kotlinx.android.parcel.Parcelize
 import org.threeten.bp.LocalDate
 import org.threeten.bp.temporal.ChronoUnit
 
-data class Event(val id: Long?, val title: String, val year: Int, val month: Int, val dayOfMonth: Int) {
+@Parcelize
+data class Event(
+    val id: Long?,
+    val title: String,
+    val year: Int,
+    val month: Int,
+    val dayOfMonth: Int
+) : Parcelable {
 
     fun years(now: Long): Long {
         val localDate = LocalDate.of(year, month, dayOfMonth)

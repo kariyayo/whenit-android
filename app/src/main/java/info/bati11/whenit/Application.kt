@@ -7,6 +7,8 @@ import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.*
 import dagger.multibindings.IntoMap
 import info.bati11.whenit.ui.ViewModelFactory
+import info.bati11.whenit.ui.event.EventMenuComponent
+import info.bati11.whenit.ui.event.EventMenuComponentModule
 import info.bati11.whenit.ui.event.EventViewModel
 import info.bati11.whenit.ui.event_create.EventCreateViewModel
 import timber.log.Timber
@@ -38,7 +40,7 @@ interface BindModule {
     fun bindEventCreateViewModel(viewModel: EventCreateViewModel): ViewModel
 }
 
-@Component(modules = [BindModule::class])
+@Component(modules = [BindModule::class, EventMenuComponentModule::class])
 interface AppComponent {
     fun viewModelFactory(): ViewModelProvider.Factory
 
@@ -49,6 +51,8 @@ interface AppComponent {
         @BindsInstance
         fun application(application: Application): Builder
     }
+
+    fun eventMenuComponent(): EventMenuComponent.Factory
 }
 
 class Application : Application() {

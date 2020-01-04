@@ -42,8 +42,8 @@ class EventFragment : Fragment() {
             }
         })
 
-        val adapter = EventAdapter(EventMenuClickListener { eventId ->
-            viewModel.onCardMenuClicked(eventId)
+        val adapter = EventAdapter(EventMenuClickListener { event ->
+            viewModel.displayEventMenu(event)
         })
         binding.eventList.adapter = adapter
         viewModel.events.observe(viewLifecycleOwner, Observer {
@@ -52,11 +52,11 @@ class EventFragment : Fragment() {
             }
         })
 
-        viewModel.showEventMenu.observe(viewLifecycleOwner, Observer { eventId ->
-            eventId?.let {
+        viewModel.showSelectedEventMenu.observe(viewLifecycleOwner, Observer { event ->
+            event?.let {
                 val navController = findNavController()
-                navController.navigate(EventFragmentDirections.actionEventFragmentToEventMenuBottomSheetDialog())
-                viewModel.onShowedEventMenu()
+                navController.navigate(EventFragmentDirections.actionEventFragmentToEventMenuBottomSheetDialog(it))
+                viewModel.displayEventMenuComplete()
             }
         })
 
