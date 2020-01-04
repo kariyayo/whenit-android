@@ -14,4 +14,13 @@ interface EventDao {
 
     @Query("SELECT * FROM event ORDER BY id DESC LIMIT 1")
     fun selectLatest(): LiveData<EventEntity?>
+
+    @Query("""
+        SELECT * FROM (
+            SELECT * FROM (SELECT * FROM event WHERE month >= :month AND dayOfMonth >= :dayOfMonth ORDER BY month, dayOfMonth LIMIT :limit) AS a
+            UNION ALL
+            SELECT * FROM (SELECT * FROM event WHERE month <= :month AND dayOfMonth < :dayOfMonth ORDER BY month, dayOfMonth LIMIT :limit) AS b
+        ) LIMIT :limit
+        """)
+    fun selectOrderByNearly(month: Int, dayOfMonth: Int, limit: Int): List<EventEntity>
 }

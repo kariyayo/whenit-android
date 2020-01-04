@@ -43,6 +43,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
 
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
     implementation 'com.jakewharton.timber:timber:4.7.1'

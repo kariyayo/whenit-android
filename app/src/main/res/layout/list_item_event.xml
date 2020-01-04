@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="event"
+            type="info.bati11.whenit.domain.Event" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.MaterialComponents.CardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textYears"
+                style="@style/AppTheme.PrimaryTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:textAlignment="viewStart"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="62" />
+
+            <TextView
+                android:id="@+id/textYearsPostfix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/years_postfix"
+                android:textAlignment="viewEnd"
+                app:layout_constraintBaseline_toBaselineOf="@id/textYears"
+                app:layout_constraintBottom_toBottomOf="@+id/textYears"
+                app:layout_constraintStart_toEndOf="@+id/textYears"
+                app:layout_constraintTop_toTopOf="@+id/textYears" />
+
+            <TextView
+                android:id="@+id/textDays"
+                style="@style/AppTheme.PrimaryTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textAlignment="viewStart"
+                app:layout_constraintStart_toEndOf="@+id/textYearsPostfix"
+                app:layout_constraintTop_toTopOf="@+id/textYears"
+                app:layout_goneMarginLeft="16dp"
+                tools:text="358" />
+
+            <TextView
+                android:id="@+id/textDaysPostfix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/days_postfix"
+                android:textAlignment="viewEnd"
+                app:layout_constraintBaseline_toBaselineOf="@id/textDays"
+                app:layout_constraintBottom_toBottomOf="@+id/textDays"
+                app:layout_constraintStart_toEndOf="@+id/textDays"
+                app:layout_constraintTop_toTopOf="@+id/textDays" />
+
+            <TextView
+                android:id="@+id/textTitlePrefix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/title_prefix"
+                app:layout_constraintBottom_toBottomOf="@+id/textTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textTitle" />
+
+            <TextView
+                android:id="@+id/textTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                style="@style/AppTheme.PrimarySubTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textTitlePrefix"
+                app:layout_constraintTop_toBottomOf="@+id/textDays"
+                tools:text="結婚記念日aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbaaaaaaaaaaaaa ( 2888-12-28 )" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textTitle">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:contentDescription="@string/text_more"
+                    android:onClick="@{() -> viewModel.onCardMenuClicked()}"
+                    app:srcCompat="@drawable/ic_more_horiz_black_24dp" />
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

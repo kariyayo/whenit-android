@@ -8,6 +8,7 @@ import info.bati11.whenit.domain.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.threeten.bp.Instant
+import org.threeten.bp.LocalDate
 
 class EventRepository(private val database: EventDatabase) {
 
@@ -31,6 +32,14 @@ class EventRepository(private val database: EventDatabase) {
                     createdAt = Instant.now().toEpochMilli()
                 )
             )
+        }
+    }
+
+    suspend fun findEvents(date: LocalDate, limit: Int): List<Event> {
+        return withContext(Dispatchers.IO) {
+            val entities =
+                database.eventDao.selectOrderByNearly(date.monthValue, date.dayOfMonth, limit)
+            entities.map { Event(it.id, it.title, it.year, it.month, it.dayOfMonth) }
         }
     }
 

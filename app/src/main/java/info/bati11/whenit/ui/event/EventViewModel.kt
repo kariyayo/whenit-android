@@ -8,26 +8,33 @@ import androidx.lifecycle.Transformations
 import info.bati11.whenit.database.getEventDatabase
 import info.bati11.whenit.domain.Event
 import info.bati11.whenit.repository.EventRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
 import timber.log.Timber
 import javax.inject.Inject
 
 class EventViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
     private val eventRepository = EventRepository(getEventDatabase(application))
-    val event: LiveData<Event?> = eventRepository.event
-    val eventLoaded: LiveData<Boolean> = Transformations.map(event) { true }
-    val yearsFromEvent: LiveData<String> = Transformations.map(event) { ev ->
-        ev?.years(System.currentTimeMillis())?.toString() ?: ""
-    }
-    val daysFromEvent: LiveData<String> = Transformations.map(event) { ev ->
-        ev?.daysOfYears(System.currentTimeMillis())?.toString() ?: ""
-    }
-    val eventLabel: LiveData<String> = Transformations.map(event) { ev ->
-        "${ev?.title} ( ${ev?.year}-${ev?.month}-${ev?.dayOfMonth} )"
-    }
+    private val _events = MutableLiveData<List<Event>>()
+    val events: LiveData<List<Event>>
+        get() = _events
+    val eventLoaded: LiveData<Boolean> = Transformations.map(events) { true }
 
     private val _navigateToEventCreate = MutableLiveData<Boolean>()
     val navigateToEventCreate: LiveData<Boolean>
         get() = _navigateToEventCreate
+
+    fun loadEvents(date: LocalDate) {
+        uiScope.launch {
+            _events.value = eventRepository.findEvents(date, 10)
+        }
+    }
 
     fun onCardMenuClicked() {
         Timber.i("onCardMenuClicked")

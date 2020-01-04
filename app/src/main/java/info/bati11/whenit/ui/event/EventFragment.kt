@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import info.bati11.whenit.Application
 import info.bati11.whenit.databinding.FragmentEventBinding
+import org.threeten.bp.LocalDate
 
 /**
  * A simple [Fragment] subclass.
@@ -31,11 +32,21 @@ class EventFragment : Fragment() {
             ViewModelProviders.of(this, viewModelFactory).get(EventViewModel::class.java)
         binding.viewModel = viewModel
 
+        viewModel.loadEvents(LocalDate.now())
+
         viewModel.navigateToEventCreate.observe(viewLifecycleOwner, Observer {
             if (it) {
                 val navController = findNavController()
                 navController.navigate(EventFragmentDirections.actionEventFragmentToEventCreateFragment())
                 viewModel.onNavigatedToEventCreate()
+            }
+        })
+
+        val adapter = EventAdapter()
+        binding.eventList.adapter = adapter
+        viewModel.events.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
             }
         })
 
