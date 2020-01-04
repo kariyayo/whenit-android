@@ -45,6 +45,10 @@ class EventViewModel @Inject constructor(application: Application) : AndroidView
         _showEventMenu.value = eventId
     }
 
+    fun onShowedEventMenu() {
+        _showEventMenu.value = null
+    }
+
     fun onFabClicked() {
         _navigateToEventCreate.value = true
     }

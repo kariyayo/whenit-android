@@ -53,8 +53,11 @@ class EventFragment : Fragment() {
         })
 
         viewModel.showEventMenu.observe(viewLifecycleOwner, Observer { eventId ->
-            val bottomSheet = EventMenuBottomSheetDialog()
-            bottomSheet.show(fragmentManager!!, bottomSheet.tag)
+            eventId?.let {
+                val navController = findNavController()
+                navController.navigate(EventFragmentDirections.actionEventFragmentToEventMenuBottomSheetDialog())
+                viewModel.onShowedEventMenu()
+            }
         })
 
         val appCompatActivity: AppCompatActivity? = (activity as AppCompatActivity?)
