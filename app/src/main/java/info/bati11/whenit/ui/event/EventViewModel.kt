@@ -30,14 +30,19 @@ class EventViewModel @Inject constructor(application: Application) : AndroidView
     val navigateToEventCreate: LiveData<Boolean>
         get() = _navigateToEventCreate
 
+    private val _showEventMenu = MutableLiveData<Long?>()
+    val showEventMenu: LiveData<Long?>
+        get() = _showEventMenu
+
     fun loadEvents(date: LocalDate) {
         uiScope.launch {
             _events.value = eventRepository.findEvents(date, 10)
         }
     }
 
-    fun onCardMenuClicked() {
-        Timber.i("onCardMenuClicked")
+    fun onCardMenuClicked(eventId: Long) {
+        Timber.i("onCardMenuClicked. eventId: ${eventId}")
+        _showEventMenu.value = eventId
     }
 
     fun onFabClicked() {

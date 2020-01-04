@@ -42,12 +42,19 @@ class EventFragment : Fragment() {
             }
         })
 
-        val adapter = EventAdapter()
+        val adapter = EventAdapter(EventMenuClickListener { eventId ->
+            viewModel.onCardMenuClicked(eventId)
+        })
         binding.eventList.adapter = adapter
         viewModel.events.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }
+        })
+
+        viewModel.showEventMenu.observe(viewLifecycleOwner, Observer { eventId ->
+            val bottomSheet = EventMenuBottomSheetDialog()
+            bottomSheet.show(fragmentManager!!, bottomSheet.tag)
         })
 
         val appCompatActivity: AppCompatActivity? = (activity as AppCompatActivity?)

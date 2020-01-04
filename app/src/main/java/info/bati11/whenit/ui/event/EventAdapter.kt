@@ -8,21 +8,22 @@ import androidx.recyclerview.widget.RecyclerView
 import info.bati11.whenit.databinding.ListItemEventBinding
 import info.bati11.whenit.domain.Event
 
-class EventAdapter : ListAdapter<Event, EventAdapter.ViewHolder>(EventDiffCallback()) {
+class EventAdapter(val menuClickListener: EventMenuClickListener) : ListAdapter<Event, EventAdapter.ViewHolder>(EventDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, menuClickListener)
     }
 
     class ViewHolder private constructor(val binding: ListItemEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Event) {
+        fun bind(item: Event, menuClickListener: EventMenuClickListener) {
             binding.event = item
+            binding.menuClickListener = menuClickListener
             binding.textYears.text = item.years(System.currentTimeMillis()).toString()
             binding.textDays.text = item.daysOfYears(System.currentTimeMillis()).toString()
             binding.textTitle.text = "${item.title} ( ${item.year}-${item.month}-${item.dayOfMonth} )"
@@ -48,4 +49,8 @@ class EventDiffCallback : DiffUtil.ItemCallback<Event>() {
         return oldItem == newItem
     }
 
+}
+
+class EventMenuClickListener(val clickListener: (id: Long)-> Unit) {
+    fun onClick(event: Event) = clickListener(event.id!!)
 }

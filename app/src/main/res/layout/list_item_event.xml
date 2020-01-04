@@ -7,6 +7,9 @@
         <variable
             name="event"
             type="info.bati11.whenit.domain.Event" />
+        <variable
+            name="menuClickListener"
+            type="info.bati11.whenit.ui.event.EventMenuClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -113,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:background="?android:attr/selectableItemBackground"
                     android:contentDescription="@string/text_more"
-                    android:onClick="@{() -> viewModel.onCardMenuClicked()}"
+                    android:onClick="@{() -> menuClickListener.onClick(event)}"
                     app:srcCompat="@drawable/ic_more_horiz_black_24dp" />
             </com.google.android.material.card.MaterialCardView>
 

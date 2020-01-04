@@ -15,4 +15,6 @@
     <string name="text_more">more</string>
     <string name="get_started_header">イベントを登録しよう</string>
     <string name="get_started_description">忘れたくない、すぐに思い出したい大切なイベントを登録しましょう。登録すればいつでもすぐに確認することができます。</string>
+    <string name="label_edit">Edit</string>
+    <string name="label_remove">Remove</string>
 </resources>
