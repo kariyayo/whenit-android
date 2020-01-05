@@ -1,4 +1,4 @@
-package info.bati11.whenit.ui.event
+package info.bati11.whenit.ui.event_menu
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -30,7 +30,7 @@
     </fragment>
     <dialog
         android:id="@+id/eventMenuBottomSheetDialog"
-        android:name="info.bati11.whenit.ui.event.EventMenuBottomSheetDialog"
+        android:name="info.bati11.whenit.ui.event_menu.EventMenuBottomSheetDialogFragment"
         android:label="EventMenuBottomSheetDialog" >
         <action
             android:id="@+id/action_eventMenuBottomSheetDialog_to_eventFragment"

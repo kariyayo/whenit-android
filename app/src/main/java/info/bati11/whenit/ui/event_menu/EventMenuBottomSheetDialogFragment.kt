@@ -1,4 +1,4 @@
-package info.bati11.whenit.ui.event
+package info.bati11.whenit.ui.event_menu
 
 import android.app.Dialog
 import androidx.lifecycle.ViewModelProviders
@@ -6,14 +6,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import info.bati11.whenit.Application
 import info.bati11.whenit.databinding.FragmentBottomSheetEventMenuBinding
 
-class EventMenuBottomSheetDialog : BottomSheetDialogFragment() {
+class EventMenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     override fun setupDialog(dialog: Dialog, style: Int) {
         super.setupDialog(dialog, style)
 
         val binding = FragmentBottomSheetEventMenuBinding.inflate(dialog.layoutInflater)
 
-        val event = EventMenuBottomSheetDialogArgs.fromBundle(arguments!!).event
+        val event =
+            EventMenuBottomSheetDialogFragmentArgs.fromBundle(arguments!!).event
 
         val viewModelFactory =
             (activity!!.application as Application)

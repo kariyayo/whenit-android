@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="info.bati11.whenit.ui.event.EventMenuViewModel" />
+            type="info.bati11.whenit.ui.event_menu.EventMenuViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -7,8 +7,8 @@ import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.*
 import dagger.multibindings.IntoMap
 import info.bati11.whenit.ui.ViewModelFactory
-import info.bati11.whenit.ui.event.EventMenuComponent
-import info.bati11.whenit.ui.event.EventMenuComponentModule
+import info.bati11.whenit.ui.event_menu.EventMenuComponent
+import info.bati11.whenit.ui.event_menu.EventMenuComponentModule
 import info.bati11.whenit.ui.event.EventViewModel
 import info.bati11.whenit.ui.event_create.EventCreateViewModel
 import timber.log.Timber
