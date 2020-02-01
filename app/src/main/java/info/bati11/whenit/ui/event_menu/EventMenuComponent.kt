@@ -7,7 +7,7 @@ import dagger.BindsInstance
 import dagger.Module
 import dagger.Subcomponent
 import dagger.multibindings.IntoMap
-import info.bati11.whenit.ViewModelKey
+import info.bati11.whenit.di.ViewModelKey
 import info.bati11.whenit.domain.Event
 
 @Module
@@ -28,6 +28,3 @@ interface EventMenuComponent {
 
     fun viewModelFactory(): ViewModelProvider.Factory
 }
-
-@Module(subcomponents = [EventMenuComponent::class])
-object EventMenuComponentModule
