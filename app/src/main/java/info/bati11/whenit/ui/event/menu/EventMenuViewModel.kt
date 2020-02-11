@@ -1,4 +1,4 @@
-package info.bati11.whenit.ui.event_menu
+package info.bati11.whenit.ui.event.menu
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

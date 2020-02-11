@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.event.EventFragment">
+    tools:context=".ui.app.event_list.EventListFragment">
 
     <data>
 
@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="info.bati11.whenit.ui.event.EventViewModel" />
+            type="info.bati11.whenit.ui.app.event_list.EventListViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

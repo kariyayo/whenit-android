@@ -8,8 +8,8 @@ import dagger.multibindings.IntoMap
 import info.bati11.whenit.database.repository.EventRepositoryImpl
 import info.bati11.whenit.repository.EventRepository
 import info.bati11.whenit.ui.ViewModelFactory
-import info.bati11.whenit.ui.event.EventViewModel
-import info.bati11.whenit.ui.event_create.EventCreateViewModel
+import info.bati11.whenit.ui.app.event_list.EventListViewModel
+import info.bati11.whenit.ui.app.event_create.EventCreateViewModel
 import javax.inject.Singleton
 
 @Module
@@ -24,8 +24,8 @@ interface WhenitAppModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(EventViewModel::class)
-    fun bindEventViewModel(viewModel: EventViewModel): ViewModel
+    @ViewModelKey(EventListViewModel::class)
+    fun bindEventViewModel(viewModel: EventListViewModel): ViewModel
 
     @Binds
     @IntoMap

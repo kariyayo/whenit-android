@@ -1,4 +1,4 @@
-package info.bati11.whenit.ui.event
+package info.bati11.whenit.ui.app.event_list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,9 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import info.bati11.whenit.databinding.ListItemEventBinding
 import info.bati11.whenit.domain.Event
 
-class EventAdapter(val menuClickListener: EventMenuClickListener) : ListAdapter<Event, EventAdapter.ViewHolder>(EventDiffCallback()) {
+class EventListAdapter(val menuClickListener: EventMenuClickListener) : ListAdapter<Event, EventListAdapter.ViewHolder>(
+    EventDiffCallback()
+) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
+        return ViewHolder.from(
+            parent
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -34,7 +38,9 @@ class EventAdapter(val menuClickListener: EventMenuClickListener) : ListAdapter<
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ListItemEventBinding.inflate(layoutInflater, parent, false)
-                return ViewHolder(binding)
+                return ViewHolder(
+                    binding
+                )
             }
         }
     }

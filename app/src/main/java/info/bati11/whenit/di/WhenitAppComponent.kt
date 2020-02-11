@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.ViewModelProvider
 import dagger.BindsInstance
 import dagger.Component
-import info.bati11.whenit.ui.event_menu.EventMenuComponent
+import info.bati11.whenit.ui.event.EventComponent
 import javax.inject.Singleton
 
 @Singleton
@@ -20,5 +20,5 @@ interface WhenitAppComponent {
         fun application(application: Application): Builder
     }
 
-    fun eventMenuComponent(): EventMenuComponent.Factory
+    fun eventMenuComponent(): EventComponent.Factory
 }

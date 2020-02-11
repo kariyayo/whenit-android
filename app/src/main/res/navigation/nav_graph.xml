@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/eventFragment">
+    app:startDestination="@id/eventListFragment">
 
     <fragment
-        android:id="@+id/eventFragment"
-        android:name="info.bati11.whenit.ui.event.EventFragment"
+        android:id="@+id/eventListFragment"
+        android:name="info.bati11.whenit.ui.app.event_list.EventListFragment"
         android:label="fragment_event"
-        tools:layout="@layout/fragment_event" >
+        tools:layout="@layout/fragment_event_list" >
         <action
             android:id="@+id/action_eventFragment_to_eventCreateFragment"
             app:destination="@id/eventCreateFragment" />
@@ -19,22 +19,22 @@
     </fragment>
     <fragment
         android:id="@+id/eventCreateFragment"
-        android:name="info.bati11.whenit.ui.event_create.EventCreateFragment"
+        android:name="info.bati11.whenit.ui.app.event_create.EventCreateFragment"
         android:label="fragment_event_create"
         tools:layout="@layout/fragment_event_create" >
         <action
             android:id="@+id/action_eventCreateFragment_to_eventFragment"
-            app:destination="@+id/eventFragment"
+            app:destination="@id/eventListFragment"
             app:popUpTo="@+id/nav_graph"
             app:popUpToInclusive="false" />
     </fragment>
     <dialog
         android:id="@+id/eventMenuBottomSheetDialog"
-        android:name="info.bati11.whenit.ui.event_menu.EventMenuBottomSheetDialogFragment"
+        android:name="info.bati11.whenit.ui.event.menu.EventMenuBottomSheetDialogFragment"
         android:label="EventMenuBottomSheetDialog" >
         <action
             android:id="@+id/action_eventMenuBottomSheetDialog_to_eventFragment"
-            app:destination="@id/eventFragment" />
+            app:destination="@id/eventListFragment" />
         <argument
             android:name="event"
             app:argType="info.bati11.whenit.domain.Event" />

@@ -1,4 +1,4 @@
-package info.bati11.whenit.ui.event_menu
+package info.bati11.whenit.ui.event.menu
 
 import android.app.Dialog
 import android.widget.Toast
@@ -17,7 +17,9 @@ class EventMenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
         val binding = FragmentBottomSheetEventMenuBinding.inflate(dialog.layoutInflater)
 
         val event =
-            EventMenuBottomSheetDialogFragmentArgs.fromBundle(arguments!!).event
+            EventMenuBottomSheetDialogFragmentArgs.fromBundle(
+                arguments!!
+            ).event
 
         val viewModelFactory =
             (activity!!.application as Application)

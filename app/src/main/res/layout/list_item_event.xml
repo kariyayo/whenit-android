@@ -9,7 +9,7 @@
             type="info.bati11.whenit.domain.Event" />
         <variable
             name="menuClickListener"
-            type="info.bati11.whenit.ui.event.EventMenuClickListener" />
+            type="info.bati11.whenit.ui.app.event_list.EventMenuClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

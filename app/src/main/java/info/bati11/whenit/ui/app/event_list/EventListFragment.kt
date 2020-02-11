@@ -1,4 +1,4 @@
-package info.bati11.whenit.ui.event
+package info.bati11.whenit.ui.app.event_list
 
 
 import android.os.Bundle
@@ -11,25 +11,25 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import info.bati11.whenit.Application
-import info.bati11.whenit.databinding.FragmentEventBinding
+import info.bati11.whenit.databinding.FragmentEventListBinding
 import org.threeten.bp.LocalDate
 
 /**
  * A simple [Fragment] subclass.
  */
-class EventFragment : Fragment() {
+class EventListFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentEventBinding.inflate(inflater)
+        val binding = FragmentEventListBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
         val viewModelFactory =
             (activity!!.application as Application).appComponent.viewModelFactory()
         val viewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(EventViewModel::class.java)
+            ViewModelProviders.of(this, viewModelFactory).get(EventListViewModel::class.java)
         binding.viewModel = viewModel
 
         viewModel.loadEvents(LocalDate.now())
@@ -37,14 +37,15 @@ class EventFragment : Fragment() {
         viewModel.navigateToEventCreate.observe(viewLifecycleOwner, Observer {
             if (it) {
                 val navController = findNavController()
-                navController.navigate(EventFragmentDirections.actionEventFragmentToEventCreateFragment())
+                navController.navigate(EventListFragmentDirections.actionEventFragmentToEventCreateFragment())
                 viewModel.onNavigatedToEventCreate()
             }
         })
 
-        val adapter = EventAdapter(EventMenuClickListener { event ->
-            viewModel.displayEventMenu(event)
-        })
+        val adapter =
+            EventListAdapter(EventMenuClickListener { event ->
+                viewModel.displayEventMenu(event)
+            })
         binding.eventList.adapter = adapter
         viewModel.events.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -55,7 +56,11 @@ class EventFragment : Fragment() {
         viewModel.showSelectedEventMenu.observe(viewLifecycleOwner, Observer { event ->
             event?.let {
                 val navController = findNavController()
-                navController.navigate(EventFragmentDirections.actionEventFragmentToEventMenuBottomSheetDialog(it))
+                navController.navigate(
+                    EventListFragmentDirections.actionEventFragmentToEventMenuBottomSheetDialog(
+                        it
+                    )
+                )
                 viewModel.displayEventMenuComplete()
             }
         })

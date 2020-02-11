@@ -1,4 +1,4 @@
-package info.bati11.whenit.ui.event
+package info.bati11.whenit.ui.app.event_list
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -15,7 +15,7 @@ import org.threeten.bp.LocalDate
 import timber.log.Timber
 import javax.inject.Inject
 
-class EventViewModel @Inject constructor(
+class EventListViewModel @Inject constructor(
     application: Application,
     private val eventRepository: EventRepository
 ) : AndroidViewModel(application) {
