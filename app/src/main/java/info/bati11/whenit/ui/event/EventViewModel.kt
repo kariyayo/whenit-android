@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import info.bati11.whenit.database.getEventDatabase
 import info.bati11.whenit.domain.Event
 import info.bati11.whenit.repository.EventRepository
 import kotlinx.coroutines.CoroutineScope
@@ -16,11 +15,13 @@ import org.threeten.bp.LocalDate
 import timber.log.Timber
 import javax.inject.Inject
 
-class EventViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
+class EventViewModel @Inject constructor(
+    application: Application,
+    private val eventRepository: EventRepository
+) : AndroidViewModel(application) {
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val eventRepository = EventRepository(getEventDatabase(application))
     private val _events = MutableLiveData<List<Event>>()
     val events: LiveData<List<Event>>
         get() = _events

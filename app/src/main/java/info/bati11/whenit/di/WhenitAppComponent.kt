@@ -8,7 +8,7 @@ import info.bati11.whenit.ui.event_menu.EventMenuComponent
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [WhenitAppModule::class, WhenitAppSubComponents::class])
+@Component(modules = [DatabaseModule::class, WhenitAppModule::class, WhenitAppSubComponents::class])
 interface WhenitAppComponent {
     fun viewModelFactory(): ViewModelProvider.Factory
 
