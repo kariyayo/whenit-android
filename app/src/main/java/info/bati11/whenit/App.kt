@@ -14,7 +14,7 @@ import info.bati11.whenit.di.WhenitAppComponent
 import timber.log.Timber
 
 
-class Application : Application() {
+class App : Application() {
     lateinit var appComponent: WhenitAppComponent
 
     override fun onCreate() {

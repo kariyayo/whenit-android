@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import info.bati11.whenit.Application
+import info.bati11.whenit.App
 import info.bati11.whenit.databinding.FragmentEventListBinding
 import org.threeten.bp.LocalDate
 
@@ -27,7 +27,7 @@ class EventListFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val viewModelFactory =
-            (activity!!.application as Application).appComponent.viewModelFactory()
+            (activity!!.application as App).appComponent.viewModelFactory()
         val viewModel =
             ViewModelProviders.of(this, viewModelFactory).get(EventListViewModel::class.java)
         binding.viewModel = viewModel

@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import info.bati11.whenit.Application
+import info.bati11.whenit.App
 import info.bati11.whenit.databinding.FragmentBottomSheetEventMenuBinding
 import timber.log.Timber
 
@@ -20,7 +20,7 @@ class EventMenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
             ).event
 
         val viewModelFactory =
-            (activity!!.application as Application)
+            (activity!!.application as App)
                 .appComponent
                 .eventMenuComponent()
                 .create(event)

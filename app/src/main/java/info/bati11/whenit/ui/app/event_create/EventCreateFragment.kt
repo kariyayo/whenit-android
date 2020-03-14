@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
-import info.bati11.whenit.Application
+import info.bati11.whenit.App
 import info.bati11.whenit.databinding.FragmentEventCreateBinding
 import info.bati11.whenit.ui.afterTextChanged
 
@@ -28,7 +28,7 @@ class EventCreateFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val viewModelFactory =
-            (activity!!.application as Application).appComponent.viewModelFactory()
+            (activity!!.application as App).appComponent.viewModelFactory()
         val viewModel =
             ViewModelProviders.of(this, viewModelFactory).get(EventCreateViewModel::class.java)
         binding.viewModel = viewModel
