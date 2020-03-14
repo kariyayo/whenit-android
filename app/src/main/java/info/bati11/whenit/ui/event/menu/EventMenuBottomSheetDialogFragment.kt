@@ -12,8 +12,6 @@ import timber.log.Timber
 class EventMenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     override fun setupDialog(dialog: Dialog, style: Int) {
-        super.setupDialog(dialog, style)
-
         val binding = FragmentBottomSheetEventMenuBinding.inflate(dialog.layoutInflater)
 
         val event =
