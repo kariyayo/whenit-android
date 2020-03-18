@@ -1,15 +1,9 @@
 package info.bati11.whenit.ui.app.event_list
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.*
 import info.bati11.whenit.domain.Event
 import info.bati11.whenit.repository.EventRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 import timber.log.Timber
@@ -19,8 +13,6 @@ class EventListViewModel @Inject constructor(
     application: Application,
     private val eventRepository: EventRepository
 ) : AndroidViewModel(application) {
-    private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private val _events = MutableLiveData<List<Event>>()
     val events: LiveData<List<Event>>
@@ -36,7 +28,7 @@ class EventListViewModel @Inject constructor(
         get() = _showSelectedEventMenu
 
     fun loadEvents(date: LocalDate) {
-        uiScope.launch {
+        viewModelScope.launch {
             _events.value = eventRepository.findEvents(date, 10)
         }
     }

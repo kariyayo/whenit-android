@@ -1,17 +1,11 @@
 package info.bati11.whenit.ui.app.event_create
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.*
 import info.bati11.whenit.R
 import info.bati11.whenit.domain.Event
 import info.bati11.whenit.domain.EventDate.toLocalDate
 import info.bati11.whenit.repository.EventRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
@@ -22,8 +16,6 @@ class EventCreateViewModel @Inject constructor(
     private val eventRepository: EventRepository
 ) :
     AndroidViewModel(application) {
-    private val viewModelJob = SupervisorJob()
-    private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     private val _navigateToEvent = MutableLiveData<Boolean>()
     val navigateToEvent: LiveData<Boolean>
