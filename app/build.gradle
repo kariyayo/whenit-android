@@ -47,8 +47,10 @@ dependencies {
 
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
     implementation 'com.jakewharton.timber:timber:4.7.1'
-    implementation 'com.google.dagger:dagger-android:2.25.4'
-    kapt 'com.google.dagger:dagger-compiler:2.25.2'
+    implementation 'com.google.dagger:dagger-android:2.27'
+    implementation 'com.google.dagger:dagger-android-support:2.27'
+    kapt 'com.google.dagger:dagger-compiler:2.27'
+    kapt 'com.google.dagger:dagger-android-processor:2.27'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'

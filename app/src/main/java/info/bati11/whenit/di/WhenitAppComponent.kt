@@ -4,11 +4,19 @@ import android.app.Application
 import androidx.lifecycle.ViewModelProvider
 import dagger.BindsInstance
 import dagger.Component
+import dagger.android.AndroidInjectionModule
+import info.bati11.whenit.App
 import info.bati11.whenit.ui.event.EventComponent
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [DatabaseModule::class, WhenitAppModule::class, WhenitAppSubComponents::class])
+@Component(modules = [
+    AndroidInjectionModule::class,
+    DatabaseModule::class,
+    WhenitAppModule::class,
+    WhenitAppSubComponents::class,
+    FragmentBindingModule::class
+])
 interface WhenitAppComponent {
     fun viewModelFactory(): ViewModelProvider.Factory
 
@@ -19,6 +27,8 @@ interface WhenitAppComponent {
         @BindsInstance
         fun application(application: Application): Builder
     }
+
+    fun inject(app: App)
 
     fun eventMenuComponent(): EventComponent.Factory
 }

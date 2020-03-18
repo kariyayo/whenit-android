@@ -7,17 +7,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import info.bati11.whenit.App
+import dagger.android.support.DaggerFragment
 import info.bati11.whenit.databinding.FragmentEventListBinding
+import info.bati11.whenit.ui.ViewModelFactory
 import org.threeten.bp.LocalDate
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
  */
-class EventListFragment : Fragment() {
+class EventListFragment : DaggerFragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val viewModel: EventListViewModel by viewModels {
+        viewModelFactory
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,11 +33,6 @@ class EventListFragment : Fragment() {
     ): View? {
         val binding = FragmentEventListBinding.inflate(inflater)
         binding.lifecycleOwner = this
-
-        val viewModelFactory =
-            (activity!!.application as App).appComponent.viewModelFactory()
-        val viewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(EventListViewModel::class.java)
         binding.viewModel = viewModel
 
         viewModel.loadEvents(LocalDate.now())

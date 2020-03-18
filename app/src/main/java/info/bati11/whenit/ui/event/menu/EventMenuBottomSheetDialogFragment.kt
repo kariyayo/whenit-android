@@ -1,32 +1,40 @@
 package info.bati11.whenit.ui.event.menu
 
 import android.app.Dialog
+import android.content.Context
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import info.bati11.whenit.App
 import info.bati11.whenit.databinding.FragmentBottomSheetEventMenuBinding
+import info.bati11.whenit.ui.ViewModelFactory
 import timber.log.Timber
+import javax.inject.Inject
 
 class EventMenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
-    override fun setupDialog(dialog: Dialog, style: Int) {
-        val binding = FragmentBottomSheetEventMenuBinding.inflate(dialog.layoutInflater)
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val viewModel: EventMenuViewModel by viewModels {
+        viewModelFactory
+    }
 
+    override fun onAttach(context: Context) {
         val event =
             EventMenuBottomSheetDialogFragmentArgs.fromBundle(
                 arguments!!
             ).event
+        val eventComponent = (activity!!.application as App).appComponent
+            .eventMenuComponent()
+            .create(event)
+        eventComponent.inject(this)
 
-        val viewModelFactory =
-            (activity!!.application as App)
-                .appComponent
-                .eventMenuComponent()
-                .create(event)
-                .viewModelFactory()
-        val viewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(EventMenuViewModel::class.java)
+        super.onAttach(context)
+    }
+
+    override fun setupDialog(dialog: Dialog, style: Int) {
+        val binding = FragmentBottomSheetEventMenuBinding.inflate(dialog.layoutInflater)
         binding.viewModel = viewModel
 
         viewModel.navigateToEventEdit.observe(this, Observer {
