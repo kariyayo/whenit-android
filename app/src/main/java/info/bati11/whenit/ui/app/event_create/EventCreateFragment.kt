@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.android.support.DaggerFragment
+import info.bati11.whenit.R
 import info.bati11.whenit.databinding.FragmentEventCreateBinding
 import info.bati11.whenit.ui.ViewModelFactory
 import info.bati11.whenit.ui.afterTextChanged
@@ -46,13 +47,21 @@ class EventCreateFragment : DaggerFragment() {
 
         // titleEditText
         binding.titleEditText.afterTextChanged { viewModel.inputTitle(it) }
-        viewModel.formTitleErrMsg.observe(this, Observer { binding.titleEditTextLayout.error = it })
+        viewModel.formTitleErr.observe(
+            this,
+            Observer {
+                binding.titleEditTextLayout.error = getString(R.string.input_helper_text_required)
+            })
 
         // dateEditText
         binding.dateEditText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) viewModel.onDateEditTextClicked()
         }
-        viewModel.formDateErrMsg.observe(this, Observer { binding.dateEditTextLayout.error = it })
+        viewModel.formDateErr.observe(
+            this,
+            Observer {
+                binding.dateEditTextLayout.error = getString(R.string.input_helper_text_required)
+            })
         val datePicker = initDatePicker(binding, viewModel)
         viewModel.showDatePickerDialogEvent.observe(this, Observer { show ->
             if (show) datePicker?.show(fragmentManager!!, "datePicker")

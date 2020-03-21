@@ -1,21 +1,18 @@
 package info.bati11.whenit.ui.app.event_create
 
-import android.app.Application
 import androidx.lifecycle.*
-import info.bati11.whenit.R
 import info.bati11.whenit.domain.Event
 import info.bati11.whenit.domain.EventDate.toLocalDate
 import info.bati11.whenit.repository.EventRepository
+import info.bati11.whenit.ui.ValidationError
 import kotlinx.coroutines.launch
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
 import javax.inject.Inject
 
 class EventCreateViewModel @Inject constructor(
-    application: Application,
     private val eventRepository: EventRepository
-) :
-    AndroidViewModel(application) {
+) : ViewModel() {
 
     private val _navigateToEvent = MutableLiveData<Boolean>()
     val navigateToEvent: LiveData<Boolean>
@@ -25,29 +22,27 @@ class EventCreateViewModel @Inject constructor(
     val showDatePickerDialogEvent: LiveData<Boolean>
         get() = _showDatePickerEvent
 
-    private val errorMessageRequired = application.getString(R.string.input_helper_text_required)
-
     private val _formTitle = MutableLiveData<String>()
-    private val _formTitleErrMsg = MutableLiveData<String>()
-    val formTitleErrMsg: LiveData<String>
-        get() = _formTitleErrMsg
+    private val _formTitleErr = MutableLiveData<ValidationError>()
+    val formTitleErr: LiveData<ValidationError>
+        get() = _formTitleErr
 
     private val _formDateInMilli = MutableLiveData<Long>()
     val formDate: LiveData<String>
         get() = Transformations.map(_formDateInMilli) {
             toLocalDate(it).format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))
         }
-    private val _formDateErrMsg = MutableLiveData<String>()
-    val formDateErrMsg: LiveData<String>
-        get() = _formDateErrMsg
+    private val _formDateErr = MutableLiveData<ValidationError>()
+    val formDateErr: LiveData<ValidationError>
+        get() = _formDateErr
 
     fun onSaveClicked() {
         viewModelScope.launch {
             val titleValue = _formTitle.value.orEmpty().trim()
-            _formTitleErrMsg.value = if (titleValue.isBlank()) errorMessageRequired else null
+            _formTitleErr.value = if (titleValue.isBlank()) ValidationError.Required else null
             val dateInMilliValue = _formDateInMilli.value ?: 0L
-            _formDateErrMsg.value = if (dateInMilliValue == 0L) errorMessageRequired else null
-            if (_formTitleErrMsg.value == null && _formDateErrMsg.value == null) {
+            _formDateErr.value = if (dateInMilliValue == 0L) ValidationError.Required else null
+            if (_formTitle.value == null && _formDateErr.value == null) {
                 val localDate = toLocalDate(dateInMilliValue)
                 eventRepository.add(
                     Event(
@@ -82,16 +77,16 @@ class EventCreateViewModel @Inject constructor(
     fun inputTitle(title: String) {
         _formTitle.value = title
         if (title.isBlank()) {
-            _formTitleErrMsg.value = errorMessageRequired
-        } else if (_formTitleErrMsg.value != null) {
-            _formTitleErrMsg.value = null
+            _formTitleErr.value = ValidationError.Required
+        } else if (_formTitleErr.value != null) {
+            _formTitleErr.value = null
         }
     }
 
     fun inputDate(epochTime: Long) {
         _formDateInMilli.value = epochTime
-        if (_formDateErrMsg.value != null) {
-            _formDateErrMsg.value = null
+        if (_formDateErr.value != null) {
+            _formDateErr.value = null
         }
     }
 
