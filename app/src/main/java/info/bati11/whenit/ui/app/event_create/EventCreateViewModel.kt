@@ -5,6 +5,7 @@ import info.bati11.whenit.domain.Event
 import info.bati11.whenit.domain.EventDate.toLocalDate
 import info.bati11.whenit.repository.EventRepository
 import info.bati11.whenit.ui.ValidationError
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
@@ -36,13 +37,13 @@ class EventCreateViewModel @Inject constructor(
     val formDateErr: LiveData<ValidationError>
         get() = _formDateErr
 
-    fun onSaveClicked() {
-        viewModelScope.launch {
+    fun onSaveClicked(): Job {
+        return viewModelScope.launch {
             val titleValue = _formTitle.value.orEmpty().trim()
             _formTitleErr.value = if (titleValue.isBlank()) ValidationError.Required else null
             val dateInMilliValue = _formDateInMilli.value ?: 0L
             _formDateErr.value = if (dateInMilliValue == 0L) ValidationError.Required else null
-            if (_formTitle.value == null && _formDateErr.value == null) {
+            if (_formTitleErr.value == null && _formDateErr.value == null) {
                 val localDate = toLocalDate(dateInMilliValue)
                 eventRepository.add(
                     Event(
