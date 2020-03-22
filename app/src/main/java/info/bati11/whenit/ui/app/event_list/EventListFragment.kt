@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import dagger.android.support.DaggerFragment
 import info.bati11.whenit.databinding.FragmentEventListBinding
 import info.bati11.whenit.ui.ViewModelFactory
-import org.threeten.bp.LocalDate
 import javax.inject.Inject
 
 /**
@@ -35,8 +34,6 @@ class EventListFragment : DaggerFragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        viewModel.loadEvents(LocalDate.now())
-
         viewModel.navigateToEventCreate.observe(viewLifecycleOwner, Observer {
             if (it) {
                 val navController = findNavController()
@@ -51,9 +48,7 @@ class EventListFragment : DaggerFragment() {
             })
         binding.eventList.adapter = adapter
         viewModel.events.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                adapter.submitList(it)
-            }
+            adapter.submitList(it)
         })
 
         viewModel.showSelectedEventMenu.observe(viewLifecycleOwner, Observer { event ->
