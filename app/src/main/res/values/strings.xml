@@ -2,8 +2,6 @@
     <string name="app_name">Whenit</string>
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_title">title</string>
     <string name="label_date">date</string>
     <string name="close_button_content_description">close button</string>
