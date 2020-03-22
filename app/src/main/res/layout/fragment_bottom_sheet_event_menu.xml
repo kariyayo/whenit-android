@@ -35,7 +35,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/event_menu_remove_label"
+            android:id="@+id/event_menu_delete_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
