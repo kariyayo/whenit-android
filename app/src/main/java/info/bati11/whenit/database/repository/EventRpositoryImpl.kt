@@ -40,6 +40,12 @@ class EventRepositoryImpl @Inject constructor(private val database: EventDatabas
         }
     }
 
+    override suspend fun delete(event: Event) {
+        withContext(Dispatchers.IO) {
+            event.id?.let { database.eventDao.delete(it) }
+        }
+    }
+
     override suspend fun findEvents(date: LocalDate, limit: Int): List<Event> {
         Timber.i("findEvents. database is: ${database}")
         return withContext(Dispatchers.IO) {

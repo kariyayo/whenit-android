@@ -11,4 +11,5 @@ interface EventRepository {
     suspend fun add(event: Event)
 
     suspend fun findEvents(date: LocalDate, limit: Int): List<Event>
+    suspend fun delete(event: Event)
 }

@@ -12,6 +12,9 @@ interface EventDao {
     @Insert
     fun insert(entity: EventEntity)
 
+    @Query("DELETE FROM event WHERE id = :id")
+    fun delete(id: Long)
+
     @Query("SELECT * FROM event ORDER BY id DESC LIMIT 1")
     fun selectLatest(): LiveData<EventEntity?>
 
