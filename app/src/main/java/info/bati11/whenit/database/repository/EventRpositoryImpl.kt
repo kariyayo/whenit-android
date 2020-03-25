@@ -2,6 +2,7 @@ package info.bati11.whenit.database.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import androidx.paging.DataSource
 import info.bati11.whenit.database.EventDatabase
 import info.bati11.whenit.database.entity.EventEntity
 import info.bati11.whenit.domain.Event
@@ -40,13 +41,15 @@ class EventRepositoryImpl @Inject constructor(private val database: EventDatabas
         }
     }
 
-    override suspend fun findEvents(date: LocalDate, limit: Int): List<Event> {
-        Timber.i("findEvents. database is: ${database}")
-        return withContext(Dispatchers.IO) {
-            val entities =
-                database.eventDao.selectOrderByNearly(date.monthValue, date.dayOfMonth, limit)
-            entities.map { Event(it.id, it.title, it.year, it.month, it.dayOfMonth) }
+    override suspend fun delete(event: Event) {
+        withContext(Dispatchers.IO) {
+            event.id?.let { database.eventDao.delete(it) }
         }
     }
 
+    override fun allEvents(date: LocalDate): DataSource.Factory<Int, Event> {
+        return database.eventDao.allEventsOrderByNearly(date.monthValue, date.dayOfMonth).map {
+            Event(it.id, it.title, it.year, it.month, it.dayOfMonth)
+        }
+    }
 }

@@ -2,8 +2,6 @@
     <string name="app_name">Whenit</string>
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_title">title</string>
     <string name="label_date">date</string>
     <string name="close_button_content_description">close button</string>
@@ -16,5 +14,10 @@
     <string name="get_started_header">イベントを登録しよう</string>
     <string name="get_started_description">忘れたくない、すぐに思い出したい大切なイベントを登録しましょう。登録すればいつでもすぐに確認することができます。</string>
     <string name="label_edit">Edit</string>
-    <string name="label_remove">Remove</string>
+    <string name="label_delete">Delete</string>
+    <string name="label_yes">Yes</string>
+    <string name="label_no">No</string>
+
+    <string name="dialog_title_delete_confirm">Delete</string>
+    <string name="dialog_text_text_delete_confirm_dialog">Do you want to delete this Event?</string>
 </resources>

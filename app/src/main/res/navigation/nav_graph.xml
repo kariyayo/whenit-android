@@ -32,9 +32,6 @@
         android:id="@+id/eventMenuBottomSheetDialog"
         android:name="info.bati11.whenit.ui.event.menu.EventMenuBottomSheetDialogFragment"
         android:label="EventMenuBottomSheetDialog" >
-        <action
-            android:id="@+id/action_eventMenuBottomSheetDialog_to_eventFragment"
-            app:destination="@id/eventListFragment" />
         <argument
             android:name="event"
             app:argType="info.bati11.whenit.domain.Event" />

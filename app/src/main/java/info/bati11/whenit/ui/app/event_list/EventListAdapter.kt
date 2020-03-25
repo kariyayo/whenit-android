@@ -2,15 +2,16 @@ package info.bati11.whenit.ui.app.event_list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import info.bati11.whenit.databinding.ListItemEventBinding
 import info.bati11.whenit.domain.Event
 
-class EventListAdapter(val menuClickListener: EventMenuClickListener) : ListAdapter<Event, EventListAdapter.ViewHolder>(
-    EventDiffCallback()
-) {
+class EventListAdapter(
+    private val menuClickListener: EventMenuClickListener
+) : PagedListAdapter<Event, EventListAdapter.ViewHolder>(EventDiffCallback()) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(
             parent
@@ -19,11 +20,12 @@ class EventListAdapter(val menuClickListener: EventMenuClickListener) : ListAdap
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, menuClickListener)
+        item?.let { holder.bind(it, menuClickListener) }
     }
 
-    class ViewHolder private constructor(val binding: ListItemEventBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(
+        private val binding: ListItemEventBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Event, menuClickListener: EventMenuClickListener) {
             binding.event = item
@@ -57,6 +59,6 @@ class EventDiffCallback : DiffUtil.ItemCallback<Event>() {
 
 }
 
-class EventMenuClickListener(val clickListener: (event: Event)-> Unit) {
+class EventMenuClickListener(val clickListener: (event: Event) -> Unit) {
     fun onClick(event: Event) = clickListener(event)
 }

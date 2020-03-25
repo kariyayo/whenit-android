@@ -35,7 +35,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/event_menu_remove_label"
+            android:id="@+id/event_menu_delete_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
@@ -44,12 +44,12 @@
             android:layout_marginBottom="16dp"
             android:gravity="center_vertical"
             android:minHeight="@dimen/list_item_min_height"
-            android:text="@string/label_remove"
+            android:text="@string/label_delete"
             android:textSize="16sp"
             android:drawableLeft="@drawable/ic_delete_24px"
             android:drawablePadding="32dp"
             android:background="?android:attr/selectableItemBackground"
-            android:onClick="@{() -> viewModel.onRemoveClicked()}"
+            android:onClick="@{() -> viewModel.onDeleteClicked()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
