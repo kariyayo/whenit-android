@@ -35,7 +35,27 @@ class EventRepositoryImpl @Inject constructor(private val database: EventDatabas
                     year = event.year,
                     month = event.month,
                     dayOfMonth = event.dayOfMonth,
-                    createdAt = Instant.now().toEpochMilli()
+                    createdAt = Instant.now().toEpochMilli(),
+                    updatedAt = Instant.now().toEpochMilli()
+                )
+            )
+        }
+    }
+
+    override suspend fun update(event: Event) {
+        withContext(Dispatchers.IO) {
+            assert(event.id != null)
+            val entity = database.eventDao.findById(event.id!!)
+            assert(entity != null)
+            database.eventDao.update(
+                EventEntity(
+                    id = event.id,
+                    title = event.title,
+                    year = event.year,
+                    month = event.month,
+                    dayOfMonth = event.dayOfMonth,
+                    createdAt = entity!!.createdAt,
+                    updatedAt = Instant.now().toEpochMilli()
                 )
             )
         }

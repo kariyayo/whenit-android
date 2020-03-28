@@ -3,7 +3,6 @@ package info.bati11.whenit.ui.event.menu
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -13,7 +12,6 @@ import info.bati11.whenit.App
 import info.bati11.whenit.R
 import info.bati11.whenit.databinding.FragmentBottomSheetEventMenuBinding
 import info.bati11.whenit.ui.ViewModelFactory
-import timber.log.Timber
 import javax.inject.Inject
 
 class EventMenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
@@ -43,8 +41,11 @@ class EventMenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
         viewModel.navigateToEventEdit.observe(this, Observer {
             if (it) {
-                Timber.i("navigate to event edit")
-                Toast.makeText(requireContext(), "navigate to event edit", Toast.LENGTH_LONG).show()
+                findNavController().navigate(
+                    EventMenuBottomSheetDialogFragmentDirections.actionEventMenuBottomSheetDialogToEventEditFragment(
+                        viewModel.event
+                    )
+                )
                 viewModel.onNavigatedToEventEdit()
             }
         })
@@ -68,7 +69,7 @@ class EventMenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
         })
 
         viewModel.doneEventDelete.observe(this, Observer { isDone ->
-            if(isDone) {
+            if (isDone) {
                 findNavController().popBackStack()
             }
         })
