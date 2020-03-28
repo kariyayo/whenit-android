@@ -38,7 +38,7 @@ class EventCreateFragment : DaggerFragment() {
         binding.viewModel = viewModel
 
         // navigation
-        viewModel.navigateToEvent.observe(this, Observer { navigate ->
+        viewModel.navigateToEvent.observe(viewLifecycleOwner, Observer { navigate ->
             if (navigate) {
                 findNavController().navigate(EventCreateFragmentDirections.actionEventCreateFragmentToEventFragment())
                 viewModel.onNavigatedToEvent()
@@ -48,7 +48,7 @@ class EventCreateFragment : DaggerFragment() {
         // titleEditText
         binding.titleEditText.afterTextChanged { viewModel.inputTitle(it) }
         viewModel.formTitleErr.observe(
-            this,
+            viewLifecycleOwner,
             Observer {
                 binding.titleEditTextLayout.error = getString(R.string.input_helper_text_required)
             })
@@ -58,13 +58,13 @@ class EventCreateFragment : DaggerFragment() {
             if (hasFocus) viewModel.onDateEditTextClicked()
         }
         viewModel.formDateErr.observe(
-            this,
+            viewLifecycleOwner,
             Observer {
                 binding.dateEditTextLayout.error = getString(R.string.input_helper_text_required)
             })
         val datePicker = initDatePicker(binding, viewModel)
-        viewModel.showDatePickerDialogEvent.observe(this, Observer { show ->
-            if (show) datePicker?.show(fragmentManager!!, "datePicker")
+        viewModel.showDatePickerDialogEvent.observe(viewLifecycleOwner, Observer { show ->
+            if (show) datePicker?.show(parentFragmentManager!!, "datePicker")
         })
 
         // actionBar
