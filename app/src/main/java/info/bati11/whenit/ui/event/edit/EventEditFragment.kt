@@ -1,47 +1,51 @@
-package info.bati11.whenit.ui.app.event_create
+package info.bati11.whenit.ui.event.edit
 
-
+import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
-import dagger.android.support.DaggerFragment
+import info.bati11.whenit.App
 import info.bati11.whenit.R
-import info.bati11.whenit.databinding.FragmentEventCreateBinding
+import info.bati11.whenit.databinding.FragmentEventEditBinding
 import info.bati11.whenit.ui.ViewModelFactory
 import info.bati11.whenit.ui.afterTextChanged
 import javax.inject.Inject
 
-/**
- * A simple [Fragment] subclass.
- */
-class EventCreateFragment : DaggerFragment() {
+class EventEditFragment : Fragment(R.layout.fragment_event_edit) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel: EventCreateViewModel by viewModels {
+    private val viewModel: EventEditViewModel by viewModels {
         viewModelFactory
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val binding = FragmentEventCreateBinding.inflate(inflater)
-        binding.lifecycleOwner = this
+    override fun onAttach(context: Context) {
+        val event = EventEditFragmentArgs.fromBundle(arguments!!).event
+        val eventComponent = (activity!!.application as App).appComponent
+            .eventMenuComponent()
+            .create(event)
+        eventComponent.inject(this)
+
+        super.onAttach(context)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val binding = FragmentEventEditBinding.bind(view)
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         // navigation
-        viewModel.navigateToEvent.observe(viewLifecycleOwner, Observer { navigate ->
-            if (navigate) {
-                findNavController().navigate(EventCreateFragmentDirections.actionEventCreateFragmentToEventFragment())
-                viewModel.onNavigatedToEvent()
+        viewModel.popBack.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                findNavController().popBackStack()
+                viewModel.onPopBacked()
             }
         })
 
@@ -64,19 +68,17 @@ class EventCreateFragment : DaggerFragment() {
             })
         val datePicker = initDatePicker(binding, viewModel)
         viewModel.showDatePickerDialogEvent.observe(viewLifecycleOwner, Observer { show ->
-            if (show) datePicker?.show(parentFragmentManager!!, "datePicker")
+            if (show) datePicker.show(parentFragmentManager, "datePicker")
         })
 
         // actionBar
         val appCompatActivity: AppCompatActivity? = (activity as AppCompatActivity?)
         appCompatActivity?.supportActionBar?.hide()
-
-        return binding.root
     }
 
     private fun initDatePicker(
-        binding: FragmentEventCreateBinding,
-        viewModel: EventCreateViewModel
+        binding: FragmentEventEditBinding,
+        viewModel: EventEditViewModel
     ): MaterialDatePicker<Long> {
         val picker = MaterialDatePicker.Builder.datePicker().build()
         picker.addOnCancelListener {

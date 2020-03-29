@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.BindsInstance
 import dagger.Subcomponent
 import info.bati11.whenit.domain.Event
+import info.bati11.whenit.ui.event.edit.EventEditFragment
 import info.bati11.whenit.ui.event.menu.EventMenuBottomSheetDialogFragment
 
 @Subcomponent(modules = [EventModule::class])
@@ -17,4 +18,5 @@ interface EventComponent {
     fun viewModelFactory(): ViewModelProvider.Factory
 
     fun inject(eventMenuBottomSheetDialogFragment: EventMenuBottomSheetDialogFragment)
+    fun inject(eventEditFragment: EventEditFragment)
 }

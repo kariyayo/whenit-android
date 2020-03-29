@@ -35,5 +35,18 @@
         <argument
             android:name="event"
             app:argType="info.bati11.whenit.domain.Event" />
+        <action
+            android:id="@+id/action_eventMenuBottomSheetDialog_to_eventEditFragment"
+            app:destination="@id/eventEditFragment"
+            app:popUpTo="@id/eventEditFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/eventEditFragment"
+        android:name="info.bati11.whenit.ui.event.edit.EventEditFragment"
+        android:label="fragment_event_edit"
+        tools:layout="@layout/fragment_event_edit" >
+        <argument
+            android:name="event"
+            app:argType="info.bati11.whenit.domain.Event" />
+    </fragment>
 </navigation>

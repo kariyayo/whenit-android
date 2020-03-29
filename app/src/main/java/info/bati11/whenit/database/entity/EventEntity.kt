@@ -19,5 +19,7 @@ data class EventEntity(
     // 1-31
     val dayOfMonth: Int,
 
-    val createdAt: Long
+    val createdAt: Long,
+
+    val updatedAt: Long
 )

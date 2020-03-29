@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class EventMenuViewModel @Inject constructor(
-    private val event: Event,
+    val event: Event,
     private val eventRepository: EventRepository
 ) : ViewModel() {
 

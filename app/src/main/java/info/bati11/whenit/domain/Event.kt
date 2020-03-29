@@ -28,4 +28,9 @@ data class Event(
         val years = ChronoUnit.YEARS.between(localDate, today)
         return days - (years * 365)
     }
+
+    fun epochMilliSeconds(): Long {
+        val localDate = LocalDate.of(year, month, dayOfMonth)
+        return localDate.toEpochDay() * 24 * 60 * 60 * 1000
+    }
 }

@@ -5,13 +5,20 @@ import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import info.bati11.whenit.database.entity.EventEntity
 
 @Dao
 interface EventDao {
 
+    @Query("SELECT * FROM event WHERE id = :id")
+    fun findById(id: Long): EventEntity?
+
     @Insert
     fun insert(entity: EventEntity)
+
+    @Update
+    fun update(entity: EventEntity)
 
     @Query("DELETE FROM event WHERE id = :id")
     fun delete(id: Long)
