@@ -19,6 +19,8 @@ jobs:
     steps:
       - checkout
       - run:
+          command: ./gradlew checkLicenses
+      - run:
           command: ./gradlew lintDebug
       - run:
           command: ./gradlew testDebugUnitTest

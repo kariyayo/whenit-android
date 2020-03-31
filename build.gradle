@@ -12,16 +12,20 @@ buildscript {
         room_version = '2.2.2'
         recyclerview_version = '1.1.0'
         paging_version = "2.1.1"
+        license_tools = "1.1.0"
     }
     repositories {
         google()
         jcenter()
-
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+        classpath "gradle.plugin.com.cookpad.android.plugin:plugin:$license_tools"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -31,7 +35,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
     }
 }
 
