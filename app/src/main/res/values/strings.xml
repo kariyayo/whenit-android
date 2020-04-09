@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Whenit</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_licenses">Licenses</string>
+    <string name="activity_label_licenses">Licenses</string>
 
     <string name="label_title">title</string>
     <string name="label_date">date</string>
