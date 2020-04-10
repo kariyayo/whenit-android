@@ -59,5 +59,9 @@ workflows:
           requires:
             - build
             - test
+          filters:
+            branches:
+              only:
+                - master
           context: deploygate
 
