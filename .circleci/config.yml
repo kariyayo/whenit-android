@@ -13,7 +13,12 @@ jobs:
       - store_artifacts:
           path: app/build/outputs/apk/debug/app-debug.apk
           destination: app-debug.apk
-
+      - run: mkdir -p /tmp/workspace
+      - run: cp app/build/outputs/apk/debug/app-debug.apk /tmp/workspace
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - app-debug.apk
   test:
     executor: android/android
     steps:
@@ -29,11 +34,34 @@ jobs:
           destination: reports
       - store_test_results:
           path: app/build/test-results
+  deploy-dev:
+    executor: android/android
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Upload to DeployGate
+          command: |
+            APK_PATH=/tmp/workspace/app-debug.apk
+            TIME=$(date "+%Y%m%d_%H%M%S")
+            COMMIT_HASH=$(git log --format="%H" -n 1 | cut -c 1-8)
+            USERNAME=bati11
+            curl -F "file=@${APK_PATH}" -F "token=${DEPLOYGATE_API_KEY}" -F "message=Build by CircleCI <${COMMIT_HASH}> (${TIME})" https://deploygate.com/api/users/${USERNAME}/apps
 
 workflows:
   version: 2
-  build-test:
+  build-test-deploy:
     jobs:
       - build
       - test
+      - deploy-dev:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only:
+                - master
+          context: deploygate
 
