@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -16,16 +16,24 @@
         <item name="android:windowExitTransition">@android:transition/slide_left</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
+    <!--    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />-->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:fontFamily">@font/corben_bold</item>
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:background">@color/colorWhite</item>
+    </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:fontFamily">?attr/fontFamily</item>
+    </style>
 
-    <style name="AppTheme.PrimaryTitle">
+    <style name="AppTheme.PrimaryTitle" parent="AppTheme">
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">36sp</item>
         <item name="android:textStyle">bold</item>
     </style>
-    <style name="AppTheme.PrimarySubTitle">
+
+    <style name="AppTheme.PrimarySubTitle" parent="AppTheme">
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
