@@ -30,10 +30,12 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
+            shrinkResources false
             signingConfig signingConfigs.debug
         }
         release {
             minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -82,7 +84,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
-    debugImplementation 'com.facebook.flipper:flipper:0.33.1'
-    debugImplementation 'com.facebook.soloader:soloader:0.8.2'
-    releaseImplementation 'com.facebook.flipper:flipper-noop:0.33.1'
+    debugImplementation 'com.facebook.flipper:flipper:0.37.0'
+    debugImplementation 'com.facebook.soloader:soloader:0.9.0'
+    releaseImplementation 'com.facebook.flipper:flipper-noop:0.35.0'
 }
