@@ -1,0 +1,22 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        app:key="notifications"
+        app:title="@string/preferences_title_notifications" />
+
+    <CheckBoxPreference
+        app:key="notifications_day"
+        app:title="@string/preferences_title_notifications_day"
+        app:enabled="false"/>
+
+    <CheckBoxPreference
+        app:key="notifications_week"
+        app:title="@string/preferences_title_notifications_week"
+        app:enabled="false"/>
+
+    <CheckBoxPreference
+        app:key="notifications_month"
+        app:title="@string/preferences_title_notifications_month"
+        app:enabled="false"/>
+
+</PreferenceScreen>
