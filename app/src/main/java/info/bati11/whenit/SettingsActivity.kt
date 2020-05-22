@@ -2,7 +2,10 @@ package info.bati11.whenit
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.*
+import androidx.preference.CheckBoxPreference
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
+import androidx.preference.SwitchPreferenceCompat
 import kotlinx.android.synthetic.main.activity_licenses.*
 
 class SettingsActivity : AppCompatActivity() {
@@ -21,16 +24,17 @@ class SettingsActivity : AppCompatActivity() {
     class SettingsFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
-            val isShowNotifications = PreferenceManager.getDefaultSharedPreferences(activity).getBoolean("notifications", false)
-            findPreference<CheckBoxPreference>("notifications_day")?.isEnabled = isShowNotifications
-            findPreference<CheckBoxPreference>("notifications_week")?.isEnabled = isShowNotifications
-            findPreference<CheckBoxPreference>("notifications_month")?.isEnabled = isShowNotifications
+            val isShowNotifications = PreferenceManager.getDefaultSharedPreferences(activity)
+                .getBoolean(SettingsKeys.IS_SHOW_NOTIFICATION, false)
+            findPreference<CheckBoxPreference>(SettingsKeys.IS_SHOW_NOTIFICATION_DAY)?.isEnabled = isShowNotifications
+            findPreference<CheckBoxPreference>(SettingsKeys.IS_SHOW_NOTIFICATION_WEEK)?.isEnabled = isShowNotifications
+            findPreference<CheckBoxPreference>(SettingsKeys.IS_SHOW_NOTIFICATION_MONTH)?.isEnabled = isShowNotifications
 
-            findPreference<SwitchPreferenceCompat>("notifications")?.setOnPreferenceChangeListener { _, newValue ->
+            findPreference<SwitchPreferenceCompat>(SettingsKeys.IS_SHOW_NOTIFICATION)?.setOnPreferenceChangeListener { _, newValue ->
                 if (newValue is Boolean) {
-                    findPreference<CheckBoxPreference>("notifications_day")?.isEnabled = newValue
-                    findPreference<CheckBoxPreference>("notifications_week")?.isEnabled = newValue
-                    findPreference<CheckBoxPreference>("notifications_month")?.isEnabled = newValue
+                    findPreference<CheckBoxPreference>(SettingsKeys.IS_SHOW_NOTIFICATION_DAY)?.isEnabled = newValue
+                    findPreference<CheckBoxPreference>(SettingsKeys.IS_SHOW_NOTIFICATION_WEEK)?.isEnabled = newValue
+                    findPreference<CheckBoxPreference>(SettingsKeys.IS_SHOW_NOTIFICATION_MONTH)?.isEnabled = newValue
                     return@setOnPreferenceChangeListener true
                 } else {
                     return@setOnPreferenceChangeListener false
