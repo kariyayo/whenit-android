@@ -14,6 +14,7 @@ class ViewModelFactory @Inject constructor(
         val provider =
             found?.value ?: throw IllegalArgumentException("unknown model class $modelClass")
         try {
+            @Suppress("UNCHECKED_CAST")
             return provider.get() as T
         } catch (e: Exception) {
             throw RuntimeException(e)

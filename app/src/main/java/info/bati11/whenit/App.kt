@@ -1,7 +1,6 @@
 package info.bati11.whenit
 
 import android.app.Application
-import com.facebook.flipper.android.AndroidFlipperClient
 import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -10,7 +9,6 @@ import info.bati11.whenit.di.DaggerWhenitAppComponent
 import info.bati11.whenit.di.WhenitAppComponent
 import timber.log.Timber
 import javax.inject.Inject
-
 
 class App : Application(), HasAndroidInjector {
     lateinit var appComponent: WhenitAppComponent
@@ -22,9 +20,8 @@ class App : Application(), HasAndroidInjector {
         super.onCreate()
 
         appComponent = DaggerWhenitAppComponent
-            .builder()
-            .application(this)
-            .build()
+            .factory()
+            .create(this)
         appComponent.inject(this)
 
         AndroidThreeTen.init(this)

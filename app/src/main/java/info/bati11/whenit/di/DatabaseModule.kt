@@ -1,6 +1,6 @@
 package info.bati11.whenit.di
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
@@ -13,8 +13,8 @@ object DatabaseModule {
     @Singleton
     @JvmStatic
     @Provides
-    fun provideEventDatabase(application: Application): EventDatabase {
-        return Room.databaseBuilder(application, EventDatabase::class.java, "events")
+    fun provideEventDatabase(context: Context): EventDatabase {
+        return Room.databaseBuilder(context, EventDatabase::class.java, "events")
             .build()
     }
 }
