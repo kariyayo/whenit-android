@@ -6,6 +6,7 @@ import androidx.preference.CheckBoxPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreferenceCompat
+import info.bati11.whenit.notifications.reminder.RemindWorkerRegister
 import kotlinx.android.synthetic.main.activity_licenses.*
 
 class SettingsActivity : AppCompatActivity() {
@@ -32,6 +33,11 @@ class SettingsActivity : AppCompatActivity() {
 
             findPreference<SwitchPreferenceCompat>(SettingsKeys.IS_SHOW_NOTIFICATION)?.setOnPreferenceChangeListener { _, newValue ->
                 if (newValue is Boolean) {
+                    if (newValue) {
+                        RemindWorkerRegister(activity!!.applicationContext).on()
+                    } else {
+                        RemindWorkerRegister(activity!!.applicationContext).off()
+                    }
                     findPreference<CheckBoxPreference>(SettingsKeys.IS_SHOW_NOTIFICATION_DAY)?.isEnabled = newValue
                     findPreference<CheckBoxPreference>(SettingsKeys.IS_SHOW_NOTIFICATION_WEEK)?.isEnabled = newValue
                     findPreference<CheckBoxPreference>(SettingsKeys.IS_SHOW_NOTIFICATION_MONTH)?.isEnabled = newValue

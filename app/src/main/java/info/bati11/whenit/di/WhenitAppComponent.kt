@@ -7,6 +7,7 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import info.bati11.whenit.App
+import info.bati11.whenit.notifications.reminder.RemindWorker
 import info.bati11.whenit.ui.event.EventComponent
 import javax.inject.Singleton
 
@@ -27,6 +28,7 @@ interface WhenitAppComponent {
     }
 
     fun inject(app: App)
+    fun inject(remindWorker: RemindWorker)
 
     fun eventMenuComponent(): EventComponent.Factory
 }
