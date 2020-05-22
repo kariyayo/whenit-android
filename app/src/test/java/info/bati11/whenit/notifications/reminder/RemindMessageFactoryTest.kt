@@ -44,7 +44,7 @@ class RemindMessageFactoryTest {
                 isAvailableWeek = false,
                 isAvailableMonth = false
             )
-            assertEquals(null, result)
+            assertEquals("", result)
         }
 
         @Test
@@ -56,8 +56,7 @@ class RemindMessageFactoryTest {
                 isAvailableWeek = false,
                 isAvailableMonth = false
             )
-            assertEquals("Whenit", result?.first)
-            assertEquals("tomorrow is AA and others.", result?.second)
+            assertEquals("tomorrow is AA and others.", result)
         }
 
         @Test
@@ -69,8 +68,7 @@ class RemindMessageFactoryTest {
                 isAvailableWeek = true,
                 isAvailableMonth = false
             )
-            assertEquals("Whenit", result?.first)
-            assertEquals("one week later, CC and others.", result?.second)
+            assertEquals("one week later, CC and others.", result)
         }
 
         @Test
@@ -82,8 +80,7 @@ class RemindMessageFactoryTest {
                 isAvailableWeek = false,
                 isAvailableMonth = true
             )
-            assertEquals("Whenit", result?.first)
-            assertEquals("one month later, EE and others.", result?.second)
+            assertEquals("one month later, EE and others.", result)
         }
 
         @Test
@@ -95,8 +92,7 @@ class RemindMessageFactoryTest {
                 isAvailableWeek = true,
                 isAvailableMonth = true
             )
-            assertEquals("Whenit", result?.first)
-            assertEquals("tomorrow is AA and others.\none week later, CC and others.\none month later, EE and others.", result?.second)
+            assertEquals("tomorrow is AA and others.\none week later, CC and others.\none month later, EE and others.", result)
         }
     }
 
@@ -117,7 +113,7 @@ class RemindMessageFactoryTest {
                 isAvailableWeek = true,
                 isAvailableMonth = true
             )
-            assertEquals(null, result)
+            assertEquals("", result)
         }
 
         @Test
@@ -137,8 +133,7 @@ class RemindMessageFactoryTest {
                 isAvailableWeek = true,
                 isAvailableMonth = true
             )
-            assertEquals("Whenit", result?.first)
-            assertEquals("tomorrow is AA .", result?.second)
+            assertEquals("tomorrow is AA .", result)
         }
 
         @Test
@@ -160,8 +155,7 @@ class RemindMessageFactoryTest {
                 isAvailableWeek = true,
                 isAvailableMonth = true
             )
-            assertEquals("Whenit", result?.first)
-            assertEquals("tomorrow is AA .\none week later, CC .", result?.second)
+            assertEquals("tomorrow is AA .\none week later, CC .", result)
         }
 
         @Test
@@ -184,8 +178,7 @@ class RemindMessageFactoryTest {
                 isAvailableWeek = true,
                 isAvailableMonth = true
             )
-            assertEquals("Whenit", result?.first)
-            assertEquals("tomorrow is AA .\none week later, CC and others.", result?.second)
+            assertEquals("tomorrow is AA .\none week later, CC and others.", result)
         }
 
         @Test
@@ -205,8 +198,7 @@ class RemindMessageFactoryTest {
                 isAvailableWeek = true,
                 isAvailableMonth = true
             )
-            assertEquals("Whenit", result?.first)
-            assertEquals("one month later, EE .", result?.second)
+            assertEquals("one month later, EE .", result)
         }
 
     }

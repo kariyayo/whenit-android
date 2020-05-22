@@ -6,7 +6,6 @@ import org.threeten.bp.LocalDate
 
 class RemindMessageFactory constructor(
     private val eventRepository: EventRepository,
-    private val titleString: String = "Whenit",
     private val prefixStringTomorrow: String = "tomorrow is",
     private val prefixStringNextWeek: String = "one week later,",
     private val prefixStringNextMonth: String = "one month later,",
@@ -19,7 +18,7 @@ class RemindMessageFactory constructor(
         isAvailableDay: Boolean,
         isAvailableWeek: Boolean,
         isAvailableMonth: Boolean
-    ): Pair<String, String>? {
+    ): String {
         val content = mutableListOf<String>()
         if (isAvailableDay) {
             val events = eventRepository.findByDate(date.plusDays(1))
@@ -39,7 +38,7 @@ class RemindMessageFactory constructor(
             if (s.isNotBlank()) content.add(s)
         }
 
-        return if (content.isNotEmpty()) Pair(titleString, content.joinToString("\n")) else null
+        return content.joinToString("\n")
     }
 
     private fun convertToString(events: List<Event>, prefix: String) : String {
