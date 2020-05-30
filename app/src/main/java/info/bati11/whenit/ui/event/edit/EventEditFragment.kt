@@ -54,7 +54,11 @@ class EventEditFragment : Fragment(R.layout.fragment_event_edit) {
         viewModel.formTitleErr.observe(
             viewLifecycleOwner,
             Observer {
-                binding.titleEditTextLayout.error = getString(R.string.input_helper_text_required)
+                binding.titleEditTextLayout.error = if (it != null) {
+                    getString(R.string.input_helper_text_required)
+                } else {
+                    null
+                }
             })
 
         // dateEditText
@@ -64,7 +68,11 @@ class EventEditFragment : Fragment(R.layout.fragment_event_edit) {
         viewModel.formDateErr.observe(
             viewLifecycleOwner,
             Observer {
-                binding.dateEditTextLayout.error = getString(R.string.input_helper_text_required)
+                binding.dateEditTextLayout.error = if (it != null) {
+                    getString(R.string.input_helper_text_required)
+                } else {
+                    null
+                }
             })
         val datePicker = initDatePicker(binding, viewModel)
         viewModel.showDatePickerDialogEvent.observe(viewLifecycleOwner, Observer { show ->
