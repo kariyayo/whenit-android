@@ -27,21 +27,13 @@
             tools:visibility="gone">
 
             <TextView
-                android:id="@+id/getStartedHeaderText"
-                style="@style/AppTheme.PrimarySubTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:layout_marginBottom="16dp"
-                android:gravity="center_horizontal"
-                android:text="@string/get_started_header" />
-
-            <TextView
                 android:id="@+id/getStartedDescriptionText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 style="@style/AppTheme.PrimarySubTitle"
+                android:textSize="18dp"
+                android:fontFamily="serif"
                 android:text="@string/get_started_description" />
         </LinearLayout>
 
@@ -60,7 +52,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
             android:onClick="@{() -> viewModel.onFabClicked()}"
-            app:backgroundTint="@color/colorPrimaryLight"
+            android:backgroundTint="@{viewModel.eventNothing ? @color/colorAccent : @color/colorPrimaryLight}"
             app:srcCompat="@drawable/ic_add_black_24dp" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
