@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -16,11 +15,9 @@ import info.bati11.whenit.R
 import info.bati11.whenit.databinding.FragmentEventCreateBinding
 import info.bati11.whenit.ui.ViewModelFactory
 import info.bati11.whenit.ui.afterTextChanged
+import info.bati11.whenit.ui.hideSoftwareKeyboard
 import javax.inject.Inject
 
-/**
- * A simple [Fragment] subclass.
- */
 class EventCreateFragment : DaggerFragment() {
 
     @Inject
@@ -40,6 +37,7 @@ class EventCreateFragment : DaggerFragment() {
         // navigation
         viewModel.navigateToEvent.observe(viewLifecycleOwner, Observer { navigate ->
             if (navigate) {
+                binding.titleEditText.hideSoftwareKeyboard(activity!!)
                 findNavController().navigate(EventCreateFragmentDirections.actionEventCreateFragmentToEventFragment())
                 viewModel.onNavigatedToEvent()
             }

@@ -14,6 +14,7 @@ import info.bati11.whenit.R
 import info.bati11.whenit.databinding.FragmentEventEditBinding
 import info.bati11.whenit.ui.ViewModelFactory
 import info.bati11.whenit.ui.afterTextChanged
+import info.bati11.whenit.ui.hideSoftwareKeyboard
 import javax.inject.Inject
 
 class EventEditFragment : Fragment(R.layout.fragment_event_edit) {
@@ -44,6 +45,7 @@ class EventEditFragment : Fragment(R.layout.fragment_event_edit) {
         // navigation
         viewModel.popBack.observe(viewLifecycleOwner, Observer {
             if (it) {
+                binding.titleEditText.hideSoftwareKeyboard(activity!!)
                 findNavController().popBackStack()
                 viewModel.onPopBacked()
             }
