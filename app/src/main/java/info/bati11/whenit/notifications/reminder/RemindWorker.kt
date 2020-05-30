@@ -76,7 +76,7 @@ class RemindWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params)
         val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)
 
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground) // FIXME
+            .setSmallIcon(R.drawable.ic_stat_w)
             .setContentTitle(title)
             .setContentText(message)
             .setStyle(NotificationCompat.BigTextStyle().bigText(message))
