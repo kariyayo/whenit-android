@@ -53,6 +53,7 @@
             android:layout_margin="@dimen/fab_margin"
             android:onClick="@{() -> viewModel.onFabClicked()}"
             android:backgroundTint="@{viewModel.eventNothing ? @color/colorAccent : @color/colorPrimaryLight}"
+            app:layout_behavior="info.bati11.whenit.ui.ScrollAwareFABBehavior"
             app:srcCompat="@drawable/ic_add_black_24dp" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
