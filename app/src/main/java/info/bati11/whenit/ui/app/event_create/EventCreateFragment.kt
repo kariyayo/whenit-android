@@ -64,7 +64,7 @@ class EventCreateFragment : DaggerFragment() {
             })
         val datePicker = initDatePicker(binding, viewModel)
         viewModel.showDatePickerDialogEvent.observe(viewLifecycleOwner, Observer { show ->
-            if (show) datePicker?.show(parentFragmentManager!!, "datePicker")
+            if (show) datePicker.show(parentFragmentManager, "datePicker")
         })
 
         // actionBar
