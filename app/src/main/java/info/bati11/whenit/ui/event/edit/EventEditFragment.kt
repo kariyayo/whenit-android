@@ -14,6 +14,7 @@ import info.bati11.whenit.R
 import info.bati11.whenit.databinding.FragmentEventEditBinding
 import info.bati11.whenit.ui.ViewModelFactory
 import info.bati11.whenit.ui.afterTextChanged
+import info.bati11.whenit.ui.hideSoftwareKeyboard
 import javax.inject.Inject
 
 class EventEditFragment : Fragment(R.layout.fragment_event_edit) {
@@ -44,6 +45,7 @@ class EventEditFragment : Fragment(R.layout.fragment_event_edit) {
         // navigation
         viewModel.popBack.observe(viewLifecycleOwner, Observer {
             if (it) {
+                binding.titleEditText.hideSoftwareKeyboard(activity!!)
                 findNavController().popBackStack()
                 viewModel.onPopBacked()
             }
@@ -54,7 +56,11 @@ class EventEditFragment : Fragment(R.layout.fragment_event_edit) {
         viewModel.formTitleErr.observe(
             viewLifecycleOwner,
             Observer {
-                binding.titleEditTextLayout.error = getString(R.string.input_helper_text_required)
+                binding.titleEditTextLayout.error = if (it != null) {
+                    getString(R.string.input_helper_text_required)
+                } else {
+                    null
+                }
             })
 
         // dateEditText
@@ -64,7 +70,11 @@ class EventEditFragment : Fragment(R.layout.fragment_event_edit) {
         viewModel.formDateErr.observe(
             viewLifecycleOwner,
             Observer {
-                binding.dateEditTextLayout.error = getString(R.string.input_helper_text_required)
+                binding.dateEditTextLayout.error = if (it != null) {
+                    getString(R.string.input_helper_text_required)
+                } else {
+                    null
+                }
             })
         val datePicker = initDatePicker(binding, viewModel)
         viewModel.showDatePickerDialogEvent.observe(viewLifecycleOwner, Observer { show ->
