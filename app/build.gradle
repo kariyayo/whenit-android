@@ -50,6 +50,9 @@ android {
             manifestPlaceholders = [appName: "@string/app_name"]
         }
     }
+    lintOptions {
+        disable "InvalidPeriodicWorkRequestInterval"
+    }
 }
 
 dependencies {
