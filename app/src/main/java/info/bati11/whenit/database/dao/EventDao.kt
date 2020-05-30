@@ -29,9 +29,11 @@ interface EventDao {
     @Query(
         """
         SELECT DISTINCT * FROM (
-            SELECT * FROM (SELECT * FROM event WHERE month >= :month AND dayOfMonth >= :dayOfMonth ORDER BY month, dayOfMonth) AS a
+            SELECT * FROM (SELECT * FROM event WHERE month = :month AND dayOfMonth >= :dayOfMonth ORDER BY month, dayOfMonth) AS a
             UNION ALL
-            SELECT * FROM (SELECT * FROM event WHERE month <= :month OR ( month = :month AND dayOfMonth < :dayOfMonth ) ORDER BY month, dayOfMonth) AS b
+            SELECT * FROM (SELECT * FROM event WHERE month >= (:month + 1) AND dayOfMonth >= 1 ORDER BY month, dayOfMonth) AS b
+            UNION ALL
+            SELECT * FROM (SELECT * FROM event WHERE month <= :month OR ( month = :month AND dayOfMonth < :dayOfMonth ) ORDER BY month, dayOfMonth) AS c
         )
         """
     )
