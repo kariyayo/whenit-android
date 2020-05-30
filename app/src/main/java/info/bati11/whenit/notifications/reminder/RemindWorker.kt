@@ -11,7 +11,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.preference.PreferenceManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import info.bati11.whenit.MainActivity
+import info.bati11.whenit.ui.MainActivity
 import info.bati11.whenit.R
 import info.bati11.whenit.SettingsKeys
 import info.bati11.whenit.di.DaggerWhenitAppComponent

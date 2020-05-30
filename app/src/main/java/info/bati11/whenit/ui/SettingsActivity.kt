@@ -1,4 +1,4 @@
-package info.bati11.whenit
+package info.bati11.whenit.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,8 @@ import androidx.preference.CheckBoxPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreferenceCompat
+import info.bati11.whenit.R
+import info.bati11.whenit.SettingsKeys
 import info.bati11.whenit.notifications.reminder.RemindWorkerRegister
 import kotlinx.android.synthetic.main.activity_licenses.*
 
@@ -18,7 +20,10 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.settings, SettingsFragment())
+            .replace(
+                R.id.settings,
+                SettingsFragment()
+            )
             .commit()
     }
 

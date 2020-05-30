@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:replace="android:allowBackup">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:label="${appName}">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,13 +22,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".ui.SettingsActivity"
             android:label="@string/activity_label_settings"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".ui.MainActivity" />
         <activity
-            android:name=".LicensesActivity"
+            android:name=".ui.LicensesActivity"
             android:label="@string/activity_label_licenses"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".ui.MainActivity" />
     </application>
 
 </manifest>

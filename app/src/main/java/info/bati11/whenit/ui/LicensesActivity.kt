@@ -1,7 +1,8 @@
-package info.bati11.whenit
+package info.bati11.whenit.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import info.bati11.whenit.R
 import kotlinx.android.synthetic.main.activity_licenses.*
 
 class LicensesActivity : AppCompatActivity() {
