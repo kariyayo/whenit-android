@@ -19,7 +19,7 @@ class RemindWorkerRegister(private val context: Context) {
         val now = LocalDateTime.now()
         val tomorrowAM10 = LocalDateTime.of(now.year, now.month, now.dayOfMonth, 10, 0).plusDays(1)
         val durationMinutes = org.threeten.bp.Duration.between(now, tomorrowAM10).toMinutes()
-        Timber.d("$WORKER_NAME ON. durationMinutes:${durationMinutes}")
+        Timber.i("$WORKER_NAME ON. durationMinutes:${durationMinutes}")
         val request = PeriodicWorkRequest.Builder(RemindWorker::class.java, 1, TimeUnit.DAYS)
             .setInitialDelay(durationMinutes, TimeUnit.MINUTES)
             .build()
@@ -27,7 +27,7 @@ class RemindWorkerRegister(private val context: Context) {
     }
 
     fun off() {
-        Timber.d("$WORKER_NAME OFF.")
+        Timber.i("$WORKER_NAME OFF.")
         val workManager = WorkManager.getInstance(context)
         workManager.cancelUniqueWork(WORKER_NAME)
     }

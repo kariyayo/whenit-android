@@ -31,7 +31,7 @@ class RemindWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params)
 
     override fun doWork(): Result {
         val now = LocalDate.now()
-        Timber.d("begin doWork(). now:${now}")
+        Timber.i("begin doWork(). now:${now}")
         try {
             val appComponent = DaggerWhenitAppComponent
                 .factory()
