@@ -24,6 +24,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.action_settings -> {
+                startActivity(
+                    Intent(this, SettingsActivity::class.java),
+                    ActivityOptions.makeSceneTransitionAnimation(this@MainActivity).toBundle()
+                )
+                return true
+            }
             R.id.action_licenses -> {
                 startActivity(
                     Intent(this, LicensesActivity::class.java),

@@ -1,11 +1,13 @@
 package info.bati11.whenit.di
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import info.bati11.whenit.App
+import info.bati11.whenit.notifications.reminder.RemindWorker
 import info.bati11.whenit.ui.event.EventComponent
 import javax.inject.Singleton
 
@@ -20,15 +22,13 @@ import javax.inject.Singleton
 interface WhenitAppComponent {
     fun viewModelFactory(): ViewModelProvider.Factory
 
-    @Component.Builder
-    interface Builder {
-        fun build(): WhenitAppComponent
-
-        @BindsInstance
-        fun application(application: Application): Builder
+    @Component.Factory
+    interface Factory {
+        fun create(@BindsInstance context: Context): WhenitAppComponent
     }
 
     fun inject(app: App)
+    fun inject(remindWorker: RemindWorker)
 
     fun eventMenuComponent(): EventComponent.Factory
 }

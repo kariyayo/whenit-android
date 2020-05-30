@@ -36,4 +36,7 @@ interface EventDao {
         """
     )
     fun allEventsOrderByNearly(month: Int, dayOfMonth: Int): DataSource.Factory<Int, EventEntity>
+
+    @Query("SELECT * FROM event WHERE month = :month AND dayOfMonth = :dayOfMonth")
+    fun findByDate(month: Int, dayOfMonth: Int): List<EventEntity>
 }
