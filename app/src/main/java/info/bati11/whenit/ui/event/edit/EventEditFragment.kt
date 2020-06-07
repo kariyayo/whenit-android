@@ -26,8 +26,8 @@ class EventEditFragment : Fragment(R.layout.fragment_event_edit) {
     }
 
     override fun onAttach(context: Context) {
-        val event = EventEditFragmentArgs.fromBundle(arguments!!).event
-        val eventComponent = (activity!!.application as App).appComponent
+        val event = EventEditFragmentArgs.fromBundle(requireArguments()).event
+        val eventComponent = (requireActivity().application as App).appComponent
             .eventMenuComponent()
             .create(event)
         eventComponent.inject(this)
@@ -45,7 +45,7 @@ class EventEditFragment : Fragment(R.layout.fragment_event_edit) {
         // navigation
         viewModel.popBack.observe(viewLifecycleOwner, Observer {
             if (it) {
-                binding.titleEditText.hideSoftwareKeyboard(activity!!)
+                binding.titleEditText.hideSoftwareKeyboard(requireActivity())
                 findNavController().popBackStack()
                 viewModel.onPopBacked()
             }

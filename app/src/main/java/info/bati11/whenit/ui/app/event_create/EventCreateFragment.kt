@@ -37,7 +37,7 @@ class EventCreateFragment : DaggerFragment() {
         // navigation
         viewModel.navigateToEvent.observe(viewLifecycleOwner, Observer { navigate ->
             if (navigate) {
-                binding.titleEditText.hideSoftwareKeyboard(activity!!)
+                binding.titleEditText.hideSoftwareKeyboard(requireActivity())
                 findNavController().navigate(EventCreateFragmentDirections.actionEventCreateFragmentToEventFragment())
                 viewModel.onNavigatedToEvent()
             }

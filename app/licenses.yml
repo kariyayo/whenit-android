@@ -175,12 +175,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://developer.android.com/topic/libraries/architecture/index.html
-- artifact: androidx.lifecycle:lifecycle-extensions:+
-  name: lifecycle-extensions
-  copyrightHolder: The Android Open Source Project
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://developer.android.com/topic/libraries/architecture/index.html
 - artifact: androidx.lifecycle:lifecycle-livedata-core-ktx:+
   name: lifecycle-livedata-core-ktx
   copyrightHolder: The Android Open Source Project
@@ -201,12 +195,6 @@
   url: https://developer.android.com/jetpack/androidx
 - artifact: androidx.lifecycle:lifecycle-livedata:+
   name: lifecycle-livedata
-  copyrightHolder: The Android Open Source Project
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://developer.android.com/topic/libraries/architecture/index.html
-- artifact: androidx.lifecycle:lifecycle-process:+
-  name: lifecycle-process
   copyrightHolder: The Android Open Source Project
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
@@ -427,6 +415,24 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://developer.android.com/topic/libraries/architecture/index.html
+- artifact: androidx.collection:collection-ktx:+
+  name: collection-ktx
+  copyrightHolder: The Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: http://developer.android.com/tools/extras/support-library.html
+- artifact: androidx.lifecycle:lifecycle-common-java8:+
+  name: lifecycle-common-java8
+  copyrightHolder: The Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/topic/libraries/architecture/index.html
+- artifact: androidx.lifecycle:lifecycle-runtime-ktx:+
+  name: lifecycle-runtime-ktx
+  copyrightHolder: The Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx
 - artifact: com.facebook.flipper:flipper-noop:+
   name: flipper-noop
   copyrightHolder: Facebook, Inc.

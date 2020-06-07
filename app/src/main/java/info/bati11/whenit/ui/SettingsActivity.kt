@@ -39,9 +39,9 @@ class SettingsActivity : AppCompatActivity() {
             findPreference<SwitchPreferenceCompat>(SettingsKeys.IS_SHOW_NOTIFICATION)?.setOnPreferenceChangeListener { _, newValue ->
                 if (newValue is Boolean) {
                     if (newValue) {
-                        RemindWorkerRegister(activity!!.applicationContext).on()
+                        RemindWorkerRegister(requireActivity().applicationContext).on()
                     } else {
-                        RemindWorkerRegister(activity!!.applicationContext).off()
+                        RemindWorkerRegister(requireActivity().applicationContext).off()
                     }
                     findPreference<CheckBoxPreference>(SettingsKeys.IS_SHOW_NOTIFICATION_DAY)?.isEnabled = newValue
                     findPreference<CheckBoxPreference>(SettingsKeys.IS_SHOW_NOTIFICATION_WEEK)?.isEnabled = newValue
