@@ -23,9 +23,9 @@ fun EditText.afterTextChanged(callback: (String) -> Unit) {
 }
 
 fun EditText.hideSoftwareKeyboard(activity: Activity) {
-    activity!!.currentFocus?.let {
+    activity.currentFocus?.let {
         this.clearFocus()
-        val inputMethodManager = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(it.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 }
