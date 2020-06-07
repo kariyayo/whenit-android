@@ -5,33 +5,68 @@ import info.bati11.whenit.repository.EventRepository
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
-import org.junit.experimental.runners.Enclosed
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
 import org.threeten.bp.LocalDate
 
-@RunWith(Enclosed::class)
-class RemindMessageFactoryTest {
+internal class RemindMessageFactoryTest {
 
-    class `引数を変える`() {
+    @Nested
+    inner class `引数を変える`() {
         private val date = LocalDate.of(2020, 5, 16)
         private lateinit var eventRepository: EventRepository
 
-        @Before
+        @BeforeEach
         fun setUp() {
             eventRepository = mockk(relaxed = true)
             every { eventRepository.findByDate(date.plusDays(1)) } returns listOf(
-                Event(1, "AA", date.plusDays(1).year, date.plusDays(1).monthValue, date.plusDays(1).dayOfMonth),
-                Event(2, "BB", date.plusDays(1).year, date.plusDays(1).monthValue, date.plusDays(1).dayOfMonth)
+                Event(
+                    1,
+                    "AA",
+                    date.plusDays(1).year,
+                    date.plusDays(1).monthValue,
+                    date.plusDays(1).dayOfMonth
+                ),
+                Event(
+                    2,
+                    "BB",
+                    date.plusDays(1).year,
+                    date.plusDays(1).monthValue,
+                    date.plusDays(1).dayOfMonth
+                )
             )
             every { eventRepository.findByDate(date.plusWeeks(1)) } returns listOf(
-                Event(3, "CC", date.plusWeeks(1).year, date.plusWeeks(1).monthValue, date.plusWeeks(1).dayOfMonth),
-                Event(4, "DD", date.plusWeeks(1).year, date.plusWeeks(1).monthValue, date.plusWeeks(1).dayOfMonth)
+                Event(
+                    3,
+                    "CC",
+                    date.plusWeeks(1).year,
+                    date.plusWeeks(1).monthValue,
+                    date.plusWeeks(1).dayOfMonth
+                ),
+                Event(
+                    4,
+                    "DD",
+                    date.plusWeeks(1).year,
+                    date.plusWeeks(1).monthValue,
+                    date.plusWeeks(1).dayOfMonth
+                )
             )
             every { eventRepository.findByDate(date.plusMonths(1)) } returns listOf(
-                Event(5, "EE", date.plusMonths(1).year, date.plusMonths(1).monthValue, date.plusMonths(1).dayOfMonth),
-                Event(6, "FF", date.plusMonths(1).year, date.plusMonths(1).monthValue, date.plusMonths(1).dayOfMonth)
+                Event(
+                    5,
+                    "EE",
+                    date.plusMonths(1).year,
+                    date.plusMonths(1).monthValue,
+                    date.plusMonths(1).dayOfMonth
+                ),
+                Event(
+                    6,
+                    "FF",
+                    date.plusMonths(1).year,
+                    date.plusMonths(1).monthValue,
+                    date.plusMonths(1).dayOfMonth
+                )
             )
         }
 
@@ -92,7 +127,10 @@ class RemindMessageFactoryTest {
                 isAvailableWeek = true,
                 isAvailableMonth = true
             )
-            assertEquals("tomorrow is AA and others.\none week later, CC and others.\none month later, EE and others.", result)
+            assertEquals(
+                "tomorrow is AA and others.\none week later, CC and others.\none month later, EE and others.",
+                result
+            )
         }
     }
 
@@ -121,7 +159,13 @@ class RemindMessageFactoryTest {
             val date = LocalDate.of(2020, 5, 16)
             val eventRepository = mockk<EventRepository>(relaxed = true)
             every { eventRepository.findByDate(date.plusDays(1)) } returns listOf(
-                Event(1, "AA", date.plusDays(1).year, date.plusDays(1).monthValue, date.plusDays(1).dayOfMonth)
+                Event(
+                    1,
+                    "AA",
+                    date.plusDays(1).year,
+                    date.plusDays(1).monthValue,
+                    date.plusDays(1).dayOfMonth
+                )
             )
             every { eventRepository.findByDate(date.plusWeeks(1)) } returns listOf()
             every { eventRepository.findByDate(date.plusMonths(1)) } returns listOf()
@@ -141,10 +185,22 @@ class RemindMessageFactoryTest {
             val date = LocalDate.of(2020, 5, 16)
             val eventRepository = mockk<EventRepository>(relaxed = true)
             every { eventRepository.findByDate(date.plusDays(1)) } returns listOf(
-                Event(1, "AA", date.plusDays(1).year, date.plusDays(1).monthValue, date.plusDays(1).dayOfMonth)
+                Event(
+                    1,
+                    "AA",
+                    date.plusDays(1).year,
+                    date.plusDays(1).monthValue,
+                    date.plusDays(1).dayOfMonth
+                )
             )
             every { eventRepository.findByDate(date.plusWeeks(1)) } returns listOf(
-                Event(3, "CC", date.plusWeeks(1).year, date.plusWeeks(1).monthValue, date.plusWeeks(1).dayOfMonth)
+                Event(
+                    3,
+                    "CC",
+                    date.plusWeeks(1).year,
+                    date.plusWeeks(1).monthValue,
+                    date.plusWeeks(1).dayOfMonth
+                )
             )
             every { eventRepository.findByDate(date.plusMonths(1)) } returns listOf()
 
@@ -163,11 +219,29 @@ class RemindMessageFactoryTest {
             val date = LocalDate.of(2020, 5, 16)
             val eventRepository = mockk<EventRepository>(relaxed = true)
             every { eventRepository.findByDate(date.plusDays(1)) } returns listOf(
-                Event(1, "AA", date.plusDays(1).year, date.plusDays(1).monthValue, date.plusDays(1).dayOfMonth)
+                Event(
+                    1,
+                    "AA",
+                    date.plusDays(1).year,
+                    date.plusDays(1).monthValue,
+                    date.plusDays(1).dayOfMonth
+                )
             )
             every { eventRepository.findByDate(date.plusWeeks(1)) } returns listOf(
-                Event(3, "CC", date.plusWeeks(1).year, date.plusWeeks(1).monthValue, date.plusWeeks(1).dayOfMonth),
-                Event(4, "DD", date.plusWeeks(1).year, date.plusWeeks(1).monthValue, date.plusWeeks(1).dayOfMonth)
+                Event(
+                    3,
+                    "CC",
+                    date.plusWeeks(1).year,
+                    date.plusWeeks(1).monthValue,
+                    date.plusWeeks(1).dayOfMonth
+                ),
+                Event(
+                    4,
+                    "DD",
+                    date.plusWeeks(1).year,
+                    date.plusWeeks(1).monthValue,
+                    date.plusWeeks(1).dayOfMonth
+                )
             )
             every { eventRepository.findByDate(date.plusMonths(1)) } returns listOf()
 
@@ -188,7 +262,13 @@ class RemindMessageFactoryTest {
             every { eventRepository.findByDate(date.plusDays(1)) } returns listOf()
             every { eventRepository.findByDate(date.plusWeeks(1)) } returns listOf()
             every { eventRepository.findByDate(date.plusMonths(1)) } returns listOf(
-                Event(5, "EE", date.plusMonths(1).year, date.plusMonths(1).monthValue, date.plusMonths(1).dayOfMonth)
+                Event(
+                    5,
+                    "EE",
+                    date.plusMonths(1).year,
+                    date.plusMonths(1).monthValue,
+                    date.plusMonths(1).dayOfMonth
+                )
             )
 
             val target = RemindMessageFactory(eventRepository)
