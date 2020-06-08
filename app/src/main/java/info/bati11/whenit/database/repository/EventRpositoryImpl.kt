@@ -72,4 +72,10 @@ class EventRepositoryImpl @Inject constructor(private val database: EventDatabas
             Event(it.id, it.title, it.year, it.month, it.dayOfMonth)
         }
     }
+
+    override fun findByDate(date: LocalDate): List<Event> {
+        return database.eventDao.findByDate(date.monthValue, date.dayOfMonth).map {
+            Event(it.id, it.title, it.year, it.month, it.dayOfMonth)
+        }
+    }
 }

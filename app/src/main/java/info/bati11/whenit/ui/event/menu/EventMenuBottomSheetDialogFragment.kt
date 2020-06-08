@@ -25,9 +25,9 @@ class EventMenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
     override fun onAttach(context: Context) {
         val event =
             EventMenuBottomSheetDialogFragmentArgs.fromBundle(
-                arguments!!
+                requireArguments()
             ).event
-        val eventComponent = (activity!!.application as App).appComponent
+        val eventComponent = (requireActivity().application as App).appComponent
             .eventMenuComponent()
             .create(event)
         eventComponent.inject(this)

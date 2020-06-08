@@ -1,4 +1,4 @@
-package info.bati11.whenit
+package info.bati11.whenit.ui
 
 import android.app.ActivityOptions
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import info.bati11.whenit.R
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -24,6 +25,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.action_settings -> {
+                startActivity(
+                    Intent(this, SettingsActivity::class.java),
+                    ActivityOptions.makeSceneTransitionAnimation(this@MainActivity).toBundle()
+                )
+                return true
+            }
             R.id.action_licenses -> {
                 startActivity(
                     Intent(this, LicensesActivity::class.java),

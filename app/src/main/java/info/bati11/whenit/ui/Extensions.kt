@@ -1,7 +1,11 @@
 package info.bati11.whenit.ui
 
+import android.app.Activity
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 
 fun EditText.afterTextChanged(callback: (String) -> Unit) {
@@ -16,4 +20,12 @@ fun EditText.afterTextChanged(callback: (String) -> Unit) {
             callback.invoke(editable.toString())
         }
     })
+}
+
+fun EditText.hideSoftwareKeyboard(activity: Activity) {
+    activity.currentFocus?.let {
+        this.clearFocus()
+        val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(it.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+    }
 }

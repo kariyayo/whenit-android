@@ -32,4 +32,3 @@ interface WhenitAppModule {
     @ViewModelKey(EventCreateViewModel::class)
     fun bindEventCreateViewModel(viewModel: EventCreateViewModel): ViewModel
 }
-

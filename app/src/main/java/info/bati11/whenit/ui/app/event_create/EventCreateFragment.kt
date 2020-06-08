@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -16,11 +15,9 @@ import info.bati11.whenit.R
 import info.bati11.whenit.databinding.FragmentEventCreateBinding
 import info.bati11.whenit.ui.ViewModelFactory
 import info.bati11.whenit.ui.afterTextChanged
+import info.bati11.whenit.ui.hideSoftwareKeyboard
 import javax.inject.Inject
 
-/**
- * A simple [Fragment] subclass.
- */
 class EventCreateFragment : DaggerFragment() {
 
     @Inject
@@ -40,6 +37,7 @@ class EventCreateFragment : DaggerFragment() {
         // navigation
         viewModel.navigateToEvent.observe(viewLifecycleOwner, Observer { navigate ->
             if (navigate) {
+                binding.titleEditText.hideSoftwareKeyboard(requireActivity())
                 findNavController().navigate(EventCreateFragmentDirections.actionEventCreateFragmentToEventFragment())
                 viewModel.onNavigatedToEvent()
             }
@@ -50,7 +48,11 @@ class EventCreateFragment : DaggerFragment() {
         viewModel.formTitleErr.observe(
             viewLifecycleOwner,
             Observer {
-                binding.titleEditTextLayout.error = getString(R.string.input_helper_text_required)
+                binding.titleEditTextLayout.error = if (it != null) {
+                    getString(R.string.input_helper_text_required)
+                } else {
+                    null
+                }
             })
 
         // dateEditText
@@ -60,11 +62,15 @@ class EventCreateFragment : DaggerFragment() {
         viewModel.formDateErr.observe(
             viewLifecycleOwner,
             Observer {
-                binding.dateEditTextLayout.error = getString(R.string.input_helper_text_required)
+                binding.dateEditTextLayout.error = if (it != null) {
+                    getString(R.string.input_helper_text_required)
+                } else {
+                    null
+                }
             })
         val datePicker = initDatePicker(binding, viewModel)
         viewModel.showDatePickerDialogEvent.observe(viewLifecycleOwner, Observer { show ->
-            if (show) datePicker?.show(parentFragmentManager!!, "datePicker")
+            if (show) datePicker.show(parentFragmentManager, "datePicker")
         })
 
         // actionBar

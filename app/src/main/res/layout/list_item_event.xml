@@ -117,7 +117,7 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:contentDescription="@string/text_more"
                     android:onClick="@{() -> menuClickListener.onClick(event)}"
-                    app:srcCompat="@drawable/ic_more_horiz_black_24dp" />
+                    app:srcCompat="@drawable/ic_more_horiz_primary_color_24dp" />
             </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

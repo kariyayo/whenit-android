@@ -16,4 +16,6 @@ interface EventRepository {
     suspend fun delete(event: Event)
 
     fun allEvents(date: LocalDate): DataSource.Factory<Int, Event>
+
+    fun findByDate(date: LocalDate): List<Event>
 }
