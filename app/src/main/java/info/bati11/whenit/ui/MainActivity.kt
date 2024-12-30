@@ -8,14 +8,12 @@ import android.view.Menu
 import android.view.MenuItem
 import info.bati11.whenit.R
 
-import kotlinx.android.synthetic.main.activity_main.*
-
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(findViewById(R.id.toolbar))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

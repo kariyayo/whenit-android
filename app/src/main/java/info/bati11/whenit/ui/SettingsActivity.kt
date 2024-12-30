@@ -9,14 +9,13 @@ import androidx.preference.SwitchPreferenceCompat
 import info.bati11.whenit.R
 import info.bati11.whenit.SettingsKeys
 import info.bati11.whenit.notifications.reminder.RemindWorkerRegister
-import kotlinx.android.synthetic.main.activity_licenses.*
 
 class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportFragmentManager
             .beginTransaction()

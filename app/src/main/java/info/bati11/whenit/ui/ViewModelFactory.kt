@@ -9,7 +9,7 @@ class ViewModelFactory @Inject constructor(
     private val providers: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
 ) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         val found = providers.entries.find { modelClass.isAssignableFrom(it.key) }
         val provider =
             found?.value ?: throw IllegalArgumentException("unknown model class $modelClass")

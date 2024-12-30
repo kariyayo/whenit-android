@@ -1,17 +1,17 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'kotlin-kapt'
 apply plugin: "de.mannodermaus.android-junit5"
 apply plugin: 'com.cookpad.android.plugin.license-tools'
 
 android {
-    compileSdkVersion 29
+    namespace "info.bati11.whenit"
+    compileSdk 33
     defaultConfig {
         applicationId "info.bati11.whenit"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 33
         versionCode 1
         versionName "0.2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -114,7 +114,7 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:1.1.0"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.1.1"
 
-    debugImplementation 'com.facebook.flipper:flipper:0.45.0'
-    debugImplementation 'com.facebook.soloader:soloader:0.9.0'
-    releaseImplementation 'com.facebook.flipper:flipper-noop:0.45.0'
+    debugImplementation 'com.facebook.flipper:flipper:0.273.0'
+    debugImplementation 'com.facebook.soloader:soloader:0.12.1'
+    releaseImplementation 'com.facebook.flipper:flipper-noop:0.273.0'
 }
