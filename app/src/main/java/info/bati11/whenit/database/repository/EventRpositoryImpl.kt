@@ -1,7 +1,7 @@
 package info.bati11.whenit.database.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import androidx.paging.DataSource
 import info.bati11.whenit.database.EventDatabase
 import info.bati11.whenit.database.entity.EventEntity
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class EventRepositoryImpl @Inject constructor(private val database: EventDatabase): EventRepository {
 
-    override val event: LiveData<Event?> = Transformations.map(database.eventDao.selectLatest()) {
+    override val event: LiveData<Event?> = database.eventDao.selectLatest().map {
         Timber.i("selectLatest. database is: ${database}")
         if (it == null) {
             null

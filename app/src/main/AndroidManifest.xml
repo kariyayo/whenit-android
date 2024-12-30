@@ -14,7 +14,9 @@
         tools:replace="android:allowBackup">
         <activity
             android:name=".ui.MainActivity"
-            android:label="${appName}">
+            android:label="${appName}"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

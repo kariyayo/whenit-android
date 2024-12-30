@@ -33,7 +33,7 @@ class EventEditViewModel @Inject constructor(
 
     private val _formDateInMilli = MutableLiveData(event.epochMilliSeconds())
     val formDate: LiveData<String>
-        get() = Transformations.map(_formDateInMilli) {
+        get() = _formDateInMilli.map {
             EventDate.toLocalDate(it).format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))
         }
     private val _formDateErr = MutableLiveData<ValidationError>()

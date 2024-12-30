@@ -2,16 +2,16 @@ package info.bati11.whenit.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.webkit.WebView
 import info.bati11.whenit.R
-import kotlinx.android.synthetic.main.activity_licenses.*
 
 class LicensesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_licenses)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        webView.loadUrl("file:///android_asset/licenses.html")
+        findViewById<WebView>(R.id.webView).loadUrl("file:///android_asset/licenses.html")
     }
 }

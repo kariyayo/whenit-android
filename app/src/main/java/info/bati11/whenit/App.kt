@@ -2,6 +2,7 @@ package info.bati11.whenit
 
 import android.app.Application
 import androidx.preference.PreferenceManager
+import com.facebook.flipper.BuildConfig
 import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector

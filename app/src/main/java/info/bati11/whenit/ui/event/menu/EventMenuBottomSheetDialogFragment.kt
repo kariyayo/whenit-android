@@ -52,7 +52,7 @@ class EventMenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
         viewModel.showDeleteConfirmDialog.observe(this, Observer {
             if (it) {
-                MaterialAlertDialogBuilder(context)
+                MaterialAlertDialogBuilder(context!!)
                     .setTitle(getString(R.string.dialog_title_delete_confirm))
                     .setMessage(getString(R.string.dialog_text_text_delete_confirm_dialog))
                     .setPositiveButton(R.string.label_yes) { dialog, which ->
