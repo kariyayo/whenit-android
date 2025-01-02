@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import info.bati11.whenit.database.dao.EventDao
 import info.bati11.whenit.database.entity.EventEntity
 
-@Database(entities = [EventEntity::class], version = 1, exportSchema = false)
+@Database(entities = [EventEntity::class], version = 1)
 abstract class EventDatabase : RoomDatabase() {
     abstract val eventDao: EventDao
 }

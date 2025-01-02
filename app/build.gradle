@@ -19,6 +19,12 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         resConfigs "en", "ja"
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
     dataBinding {
         enabled = true
