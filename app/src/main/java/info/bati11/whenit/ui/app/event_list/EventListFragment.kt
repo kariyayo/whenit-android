@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -66,7 +68,16 @@ class EventListFragment : DaggerFragment() {
         val appCompatActivity: AppCompatActivity? = (activity as AppCompatActivity?)
         appCompatActivity?.supportActionBar?.show()
 
+        binding.composeView.setContent {
+            SampleContent()
+        }
+
         return binding.root
     }
 
+}
+
+@Composable
+fun SampleContent() {
+    Text("Foo Bar")
 }
