@@ -1,6 +1,7 @@
 package info.bati11.whenit.ui.event.edit
 
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import info.bati11.whenit.domain.Event
 import info.bati11.whenit.domain.EventDate
 import info.bati11.whenit.repository.EventRepository
@@ -11,8 +12,8 @@ import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
 import javax.inject.Inject
 
+@HiltViewModel
 class EventEditViewModel @Inject constructor(
-    private val event: Event,
     private val eventRepository: EventRepository
 ) : ViewModel() {
 
@@ -39,6 +40,12 @@ class EventEditViewModel @Inject constructor(
     private val _formDateErr = MutableLiveData<ValidationError>()
     val formDateErr: LiveData<ValidationError>
         get() = _formDateErr
+
+    lateinit var event: Event
+
+    fun init(event: Event) {
+        this.event = event
+    }
 
     fun onSaveClicked(): Job {
         return viewModelScope.launch {

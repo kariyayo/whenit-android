@@ -1,30 +1,25 @@
 package info.bati11.whenit.ui.app.event_create
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import info.bati11.whenit.R
 import info.bati11.whenit.databinding.FragmentEventCreateBinding
-import info.bati11.whenit.ui.ViewModelFactory
 import info.bati11.whenit.ui.afterTextChanged
 import info.bati11.whenit.ui.hideSoftwareKeyboard
-import javax.inject.Inject
 
-class EventCreateFragment : DaggerFragment() {
+@AndroidEntryPoint
+class EventCreateFragment : Fragment(R.layout.fragment_event_create) {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel: EventCreateViewModel by viewModels {
-        viewModelFactory
-    }
+    private val viewModel: EventCreateViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

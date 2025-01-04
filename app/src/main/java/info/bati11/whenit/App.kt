@@ -1,31 +1,29 @@
 package info.bati11.whenit
 
 import android.app.Application
+import androidx.hilt.work.HiltWorkerFactory
 import androidx.preference.PreferenceManager
+import androidx.work.Configuration
 import com.facebook.flipper.BuildConfig
 import com.jakewharton.threetenabp.AndroidThreeTen
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
-import info.bati11.whenit.di.DaggerWhenitAppComponent
-import info.bati11.whenit.di.WhenitAppComponent
+import dagger.hilt.android.HiltAndroidApp
 import info.bati11.whenit.notifications.reminder.RemindWorkerRegister
 import timber.log.Timber
 import javax.inject.Inject
 
-class App : Application(), HasAndroidInjector {
-    lateinit var appComponent: WhenitAppComponent
+@HiltAndroidApp
+class App : Application(), Configuration.Provider {
 
     @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+    lateinit var workerFactory: HiltWorkerFactory
+
+    override fun getWorkManagerConfiguration() =
+        Configuration.Builder()
+            .setWorkerFactory(workerFactory)
+            .build()
 
     override fun onCreate() {
         super.onCreate()
-
-        appComponent = DaggerWhenitAppComponent
-            .factory()
-            .create(this)
-        appComponent.inject(this)
 
         AndroidThreeTen.init(this)
 
@@ -44,9 +42,5 @@ class App : Application(), HasAndroidInjector {
         }
 
         FlipperInitializer.initFlipper(this)
-    }
-
-    override fun androidInjector(): AndroidInjector<Any> {
-        return androidInjector
     }
 }

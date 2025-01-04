@@ -8,19 +8,24 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.hilt.work.HiltWorker
 import androidx.preference.PreferenceManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import dagger.assisted.AssistedInject
 import info.bati11.whenit.ui.MainActivity
 import info.bati11.whenit.R
 import info.bati11.whenit.SettingsKeys
-import info.bati11.whenit.di.DaggerWhenitAppComponent
 import info.bati11.whenit.repository.EventRepository
 import org.threeten.bp.LocalDate
 import timber.log.Timber
 import javax.inject.Inject
 
-class RemindWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
+@HiltWorker
+class RemindWorker @AssistedInject constructor(
+    ctx: Context,
+    params: WorkerParameters,
+) : Worker(ctx, params) {
 
     companion object {
         const val CHANNEL_ID = "WHENIT_REMINDER"
@@ -33,11 +38,6 @@ class RemindWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params)
         val now = LocalDate.now()
         Timber.i("begin doWork(). now:${now}")
         try {
-            val appComponent = DaggerWhenitAppComponent
-                .factory()
-                .create(applicationContext)
-            appComponent.inject(this)
-
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
             val isShowNotifications = sharedPreferences.getBoolean(SettingsKeys.IS_SHOW_NOTIFICATION, false)
             if (isShowNotifications) {

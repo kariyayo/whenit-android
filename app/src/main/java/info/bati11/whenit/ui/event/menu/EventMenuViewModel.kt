@@ -4,14 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import info.bati11.whenit.domain.Event
 import info.bati11.whenit.repository.EventRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class EventMenuViewModel @Inject constructor(
-    val event: Event,
     private val eventRepository: EventRepository
 ) : ViewModel() {
 
@@ -27,6 +28,12 @@ class EventMenuViewModel @Inject constructor(
     val showDeleteConfirmDialog: LiveData<Boolean>
         get() = _showDeleteConfirmDialog
 
+    lateinit var event: Event
+
+    fun init(event: Event) {
+        this.event = event
+    }
+
     fun onEditClicked() {
         _navigateToEventEdit.value = true
     }
@@ -41,7 +48,9 @@ class EventMenuViewModel @Inject constructor(
 
     fun deleteEvent(): Job {
         return viewModelScope.launch {
-            eventRepository.delete(event)
+            event?.let {
+                eventRepository.delete(it)
+            }
             _doneEventDelete.value = true
         }
     }

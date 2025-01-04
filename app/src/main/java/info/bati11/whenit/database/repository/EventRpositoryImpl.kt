@@ -14,7 +14,9 @@ import org.threeten.bp.LocalDate
 import timber.log.Timber
 import javax.inject.Inject
 
-class EventRepositoryImpl @Inject constructor(private val database: EventDatabase): EventRepository {
+class EventRepositoryImpl @Inject constructor(
+    private val database: EventDatabase,
+): EventRepository {
 
     override val event: LiveData<Event?> = database.eventDao.selectLatest().map {
         Timber.i("selectLatest. database is: ${database}")
