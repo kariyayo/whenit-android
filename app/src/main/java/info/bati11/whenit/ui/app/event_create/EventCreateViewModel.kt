@@ -7,6 +7,9 @@ import info.bati11.whenit.domain.EventDate.toLocalDate
 import info.bati11.whenit.repository.EventRepository
 import info.bati11.whenit.ui.ValidationError
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
@@ -17,80 +20,64 @@ class EventCreateViewModel @Inject constructor(
     private val eventRepository: EventRepository
 ) : ViewModel() {
 
-    private val _navigateToEvent = MutableLiveData<Boolean>()
-    val navigateToEvent: LiveData<Boolean>
-        get() = _navigateToEvent
+    data class UiState(
+        val isCompleted: Boolean = false,
+        val isSaveError: Boolean = false,
+        val inputtedDateTimeInMilli: Long? = null,
+        val formTitleError: ValidationError? = null,
+        val formDateError: ValidationError? = null,
+    ) {
+        val inputtedDateString =
+            inputtedDateTimeInMilli?.let {
+                toLocalDate(inputtedDateTimeInMilli).format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))
+            } ?: ""
+    }
 
-    private val _showDatePickerEvent = MutableLiveData<Boolean>()
-    val showDatePickerDialogEvent: LiveData<Boolean>
-        get() = _showDatePickerEvent
+    private val _uiState = MutableStateFlow(UiState())
+    val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
-    private val _formTitle = MutableLiveData<String>()
-    private val _formTitleErr = MutableLiveData<ValidationError>()
-    val formTitleErr: LiveData<ValidationError>
-        get() = _formTitleErr
-
-    private val _formDateInMilli = MutableLiveData<Long>()
-    val formDate: LiveData<String>
-        get() = _formDateInMilli.map {
-            toLocalDate(it).format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))
-        }
-    private val _formDateErr = MutableLiveData<ValidationError>()
-    val formDateErr: LiveData<ValidationError>
-        get() = _formDateErr
-
-    fun onSaveClicked(): Job {
+    fun onSaveClicked(titleValue: String, dateInMilli: Long?): Job {
         return viewModelScope.launch {
-            val titleValue = _formTitle.value.orEmpty().trim()
-            _formTitleErr.value = if (titleValue.isBlank()) ValidationError.Required else null
-            val dateInMilliValue = _formDateInMilli.value ?: 0L
-            _formDateErr.value = if (dateInMilliValue == 0L) ValidationError.Required else null
-            if (_formTitleErr.value == null && _formDateErr.value == null) {
-                val localDate = toLocalDate(dateInMilliValue)
-                eventRepository.add(
-                    Event(
-                        id = null,
-                        title = titleValue,
-                        year = localDate.year,
-                        month = localDate.monthValue,
-                        dayOfMonth = localDate.dayOfMonth
-                    )
+            val formTitleErr = if (titleValue.isBlank()) ValidationError.Required else null
+            val formDateErr = if (dateInMilli == null) ValidationError.Required else null
+            if (formTitleErr != null || formDateErr != null) {
+                _uiState.value = _uiState.value.copy(
+                    isCompleted = false,
+                    formTitleError = formTitleErr,
+                    formDateError = formDateErr,
                 )
-                _navigateToEvent.value = true
+            } else {
+                val localDate = toLocalDate(dateInMilli!!)
+                runCatching {
+                    eventRepository.add(
+                        Event(
+                            id = null,
+                            title = titleValue,
+                            year = localDate.year,
+                            month = localDate.monthValue,
+                            dayOfMonth = localDate.dayOfMonth
+                        )
+                    )
+                    _uiState.value = _uiState.value.copy(
+                        isCompleted = true,
+                        isSaveError = false,
+                        formTitleError = null,
+                        formDateError = null,
+                    )
+                }.onFailure {
+                    _uiState.value = UiState(
+                        isCompleted = false,
+                        isSaveError = true,
+                    )
+                }
             }
         }
     }
 
-    fun onCloseClicked() {
-        _navigateToEvent.value = true
-    }
-
-    fun onNavigatedToEvent() {
-        _navigateToEvent.value = false
-    }
-
-    fun onDateEditTextClicked() {
-        _showDatePickerEvent.value = true
-    }
-
-    fun onDismissDatePicker() {
-        _showDatePickerEvent.value = false
-    }
-
-    fun inputTitle(title: String) {
-        _formTitle.value = title
-        if (title.isBlank()) {
-            _formTitleErr.value = ValidationError.Required
-        } else if (_formTitleErr.value != null) {
-            _formTitleErr.value = null
-        }
-    }
-
     fun inputDate(epochTime: Long) {
-        _formDateInMilli.value = epochTime
-        if (_formDateErr.value != null) {
-            _formDateErr.value = null
-        }
+        _uiState.value = _uiState.value.copy(
+            inputtedDateTimeInMilli = epochTime,
+            formDateError = null,
+        )
     }
-
 }

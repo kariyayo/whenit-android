@@ -63,8 +63,6 @@ class EventCreateViewModelTest {
             eventRepository = mockk()
             coEvery { eventRepository.add(any()) } just Runs
             target = EventCreateViewModel(eventRepository)
-            t.args.title?.also { target.inputTitle(it) }
-            t.args.date?.also { target.inputDate(it) }
         }
 
         lateinit var eventRepository: EventRepository
@@ -72,15 +70,15 @@ class EventCreateViewModelTest {
 
         @Test
         fun `onSaveClickedのテスト`() {
-            val j = target.onSaveClicked()
+            val j = target.onSaveClicked(t.args.title, t.args.date)
 
             if (t.shouldCalledRepo) {
                 coVerify(exactly = 1) { eventRepository.add(any()) }
             } else {
                 coVerify(exactly = 0) { eventRepository.add(any()) }
             }
-            assertEquals(t.want1, target.formTitleErr.value)
-            assertEquals(t.want2, target.formDateErr.value)
+            assertEquals(t.want1, target.uiState.value.formTitleError)
+            assertEquals(t.want2, target.uiState.value.formDateError)
             assertEquals(false, j.isCancelled)
         }
     }
