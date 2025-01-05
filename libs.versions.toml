@@ -28,7 +28,8 @@ androidx-work = "2.7.0"
 androidx-test-espresso = "3.1.1"
 androidx-test-ext-junit = "1.1.0"
 material = "1.1.0"
-dagger-android = "2.54"
+hilt = "2.54"
+hiltWork = "1.0.0"
 threetenapp = "1.2.4"
 timber = "4.7.1"
 junit5 = "5.3.2"
@@ -68,10 +69,10 @@ androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version
 androidx-test-espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-test-espresso" }
 androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-test-ext-junit" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
-dagger-android = { module = "com.google.dagger:dagger-android", version.ref = "dagger-android" }
-dagger-android-support = { module = "com.google.dagger:dagger-android-support", version.ref = "dagger-android" }
-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger-android" }
-dagger-android-processor = { module = "com.google.dagger:dagger-android-processor", version.ref = "dagger-android" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltWork" }
 threetenapp = { module = "com.jakewharton.threetenabp:threetenabp", version.ref = "threetenapp" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
@@ -89,6 +90,7 @@ agp = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 androidx-navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "androidx-navigation" }
 android-junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "android-junit5" }
 license-tools = { id = "com.cookpad.android.plugin.license-tools", version.ref = "license-tools" }

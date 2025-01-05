@@ -1,6 +1,7 @@
 package info.bati11.whenit.ui.app.event_create
 
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import info.bati11.whenit.domain.Event
 import info.bati11.whenit.domain.EventDate.toLocalDate
 import info.bati11.whenit.repository.EventRepository
@@ -11,6 +12,7 @@ import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
 import javax.inject.Inject
 
+@HiltViewModel
 class EventCreateViewModel @Inject constructor(
     private val eventRepository: EventRepository
 ) : ViewModel() {

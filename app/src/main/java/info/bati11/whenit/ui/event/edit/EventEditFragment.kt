@@ -9,30 +9,25 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
-import info.bati11.whenit.App
+import dagger.hilt.android.AndroidEntryPoint
 import info.bati11.whenit.R
 import info.bati11.whenit.databinding.FragmentEventEditBinding
-import info.bati11.whenit.ui.ViewModelFactory
 import info.bati11.whenit.ui.afterTextChanged
+import info.bati11.whenit.ui.event.menu.EventMenuBottomSheetDialogFragmentArgs
 import info.bati11.whenit.ui.hideSoftwareKeyboard
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class EventEditFragment : Fragment(R.layout.fragment_event_edit) {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel: EventEditViewModel by viewModels {
-        viewModelFactory
-    }
+    private val viewModel: EventEditViewModel by viewModels()
 
-    override fun onAttach(context: Context) {
-        val event = EventEditFragmentArgs.fromBundle(requireArguments()).event
-        val eventComponent = (requireActivity().application as App).appComponent
-            .eventMenuComponent()
-            .create(event)
-        eventComponent.inject(this)
-
-        super.onAttach(context)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val event =
+            EventMenuBottomSheetDialogFragmentArgs.fromBundle(
+                requireArguments()
+            ).event
+        viewModel.init(event)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

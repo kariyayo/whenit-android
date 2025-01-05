@@ -6,10 +6,12 @@ import androidx.preference.CheckBoxPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreferenceCompat
+import dagger.hilt.android.AndroidEntryPoint
 import info.bati11.whenit.R
 import info.bati11.whenit.SettingsKeys
 import info.bati11.whenit.notifications.reminder.RemindWorkerRegister
 
+@AndroidEntryPoint
 class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

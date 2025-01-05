@@ -5,12 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import dagger.hilt.android.lifecycle.HiltViewModel
 import info.bati11.whenit.domain.Event
 import info.bati11.whenit.repository.EventRepository
 import org.threeten.bp.LocalDate
 import timber.log.Timber
 import javax.inject.Inject
 
+@HiltViewModel
 class EventListViewModel @Inject constructor(
     eventRepository: EventRepository
 ) : ViewModel() {
