@@ -34,7 +34,7 @@ import info.bati11.whenit.ui.ValidationError
 import info.bati11.whenit.ui.theme.WhenitTheme
 
 @Composable
-fun EventScreenRoute(
+fun EventCreateScreenRoute(
     navController: NavController,
     onClickDateField: (FocusState, EventCreateViewModel) -> Unit,
     viewModel: EventCreateViewModel = viewModel()
@@ -43,7 +43,7 @@ fun EventScreenRoute(
     if (uiState.isCompleted) {
         navController.navigate(EventCreateFragmentDirections.actionEventCreateFragmentToEventFragment())
     }
-    EventScreen(
+    EventCreateScreen(
         uiState = uiState,
         onClickDateField = { focusState ->
             onClickDateField(focusState, viewModel)
@@ -56,7 +56,7 @@ fun EventScreenRoute(
 }
 
 @Composable
-fun EventScreen(
+fun EventCreateScreen(
     uiState: EventCreateViewModel.UiState,
     onClickDateField: (FocusState) -> Unit,
     onSave: (titleText: String, dateInMillis: Long?) -> Unit,
@@ -115,7 +115,7 @@ fun EventScreen(
 fun PreviewEventCreateScreen() {
     WhenitTheme {
         Surface {
-            EventScreen(
+            EventCreateScreen(
                 uiState = EventCreateViewModel.UiState(),
                 onClickDateField = {},
                 onSave = { _, _ -> },
