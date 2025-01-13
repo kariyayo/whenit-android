@@ -98,6 +98,8 @@ dependencies {
 
     implementation libs.androidx.recyclerview
     implementation libs.androidx.paging.runtime
+    implementation libs.paging.compose
+    implementation libs.room.paging
     testImplementation libs.androidx.paging.runtime
 
     implementation libs.androidx.work.runtime.ktx

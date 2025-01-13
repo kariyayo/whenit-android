@@ -22,45 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:visibility="@{viewModel.eventNothing ? View.VISIBLE : View.GONE}"
-            tools:visibility="gone">
-
-            <TextView
-                android:id="@+id/getStartedDescriptionText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                style="@style/AppTheme.PrimarySubTitle"
-                android:textSize="18dp"
-                android:fontFamily="serif"
-                android:text="@string/get_started_description" />
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/event_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="@{viewModel.eventNothing ? View.GONE : View.VISIBLE}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:visibility="visible" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            android:onClick="@{() -> viewModel.onFabClicked()}"
-            android:backgroundTint="@{viewModel.eventNothing ? @color/colorAccent : @color/colorPrimaryLight}"
-            app:layout_behavior="info.bati11.whenit.ui.ScrollAwareFABBehavior"
-            app:srcCompat="@drawable/ic_add_black_24dp" />
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

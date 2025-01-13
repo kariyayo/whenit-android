@@ -2,12 +2,17 @@ package info.bati11.whenit.database.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import androidx.paging.DataSource
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import info.bati11.whenit.database.EventDatabase
 import info.bati11.whenit.database.entity.EventEntity
 import info.bati11.whenit.domain.Event
 import info.bati11.whenit.repository.EventRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDate
@@ -16,7 +21,7 @@ import javax.inject.Inject
 
 class EventRepositoryImpl @Inject constructor(
     private val database: EventDatabase,
-): EventRepository {
+) : EventRepository {
 
     override val event: LiveData<Event?> = database.eventDao.selectLatest().map {
         Timber.i("selectLatest. database is: ${database}")
@@ -69,9 +74,19 @@ class EventRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun allEvents(date: LocalDate): DataSource.Factory<Int, Event> {
-        return database.eventDao.allEventsOrderByNearly(date.monthValue, date.dayOfMonth).map {
-            Event(it.id, it.title, it.year, it.month, it.dayOfMonth)
+    override fun allEvents(date: LocalDate): Flow<PagingData<Event>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 50,
+                enablePlaceholders = false,
+            ),
+            pagingSourceFactory = {
+                database.eventDao.allEventsOrderByNearly(date.monthValue, date.dayOfMonth)
+            }
+        ).flow.map { pagingData: PagingData<EventEntity> ->
+            pagingData.map { entity ->
+                Event(entity.id, entity.title, entity.year, entity.month, entity.dayOfMonth)
+            }
         }
     }
 
