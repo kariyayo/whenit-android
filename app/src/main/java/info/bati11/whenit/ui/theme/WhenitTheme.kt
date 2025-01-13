@@ -18,6 +18,7 @@ fun WhenitTheme(
 
 private val WhenitColorScheme = lightColors(
     primary = Color(0xff8badbb),
-    primaryVariant = Color(0xffbcdfed),
-    secondary = Color(0xfff4cf99)
+    primaryVariant = Color(0xff5d7e8b),
+    secondary = Color(0xfff4cf99),
+    onBackground = Color(0xff5d7e8b),
 )

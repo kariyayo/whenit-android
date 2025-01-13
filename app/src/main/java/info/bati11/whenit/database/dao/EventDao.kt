@@ -2,6 +2,7 @@ package info.bati11.whenit.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -37,7 +38,7 @@ interface EventDao {
         )
         """
     )
-    fun allEventsOrderByNearly(month: Int, dayOfMonth: Int): DataSource.Factory<Int, EventEntity>
+    fun allEventsOrderByNearly(month: Int, dayOfMonth: Int): PagingSource<Int, EventEntity>
 
     @Query("SELECT * FROM event WHERE month = :month AND dayOfMonth = :dayOfMonth")
     fun findByDate(month: Int, dayOfMonth: Int): List<EventEntity>

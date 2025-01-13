@@ -23,7 +23,7 @@ class EventCreateFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 WhenitTheme {
-                    EventScreenRoute(
+                    EventCreateScreenRoute(
                         navController = findNavController(),
                         onClickDateField = { focusState, viewModel ->
                             if (focusState.hasFocus) {
