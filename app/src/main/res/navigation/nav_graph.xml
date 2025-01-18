@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_eventFragment_to_eventCreateFragment"
             app:destination="@id/eventCreateFragment" />
-        <action
-            android:id="@+id/action_eventFragment_to_eventMenuBottomSheetDialog"
-            app:destination="@id/eventMenuBottomSheetDialog" />
     </fragment>
     <fragment
         android:id="@+id/eventCreateFragment"
@@ -27,12 +24,4 @@
             app:popUpTo="@+id/nav_graph"
             app:popUpToInclusive="false" />
     </fragment>
-    <dialog
-        android:id="@+id/eventMenuBottomSheetDialog"
-        android:name="info.bati11.whenit.ui.event.menu.EventMenuBottomSheetDialogFragment"
-        android:label="EventMenuBottomSheetDialog" >
-        <argument
-            android:name="event"
-            app:argType="info.bati11.whenit.domain.Event" />
-    </dialog>
 </navigation>
