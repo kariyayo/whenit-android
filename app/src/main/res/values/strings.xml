@@ -8,7 +8,6 @@
 
     <string name="label_title">title</string>
     <string name="label_date">date</string>
-    <string name="close_button_content_description">close button</string>
     <string name="label_save_button">SAVE</string>
     <string name="input_helper_text_required">Required</string>
     <string name="years_postfix">years</string>
@@ -16,7 +15,6 @@
     <string name="title_prefix">from</string>
     <string name="text_more">more</string>
     <string name="get_started_description">Let\'s write down when it happened.</string>
-    <string name="label_edit">Edit</string>
     <string name="label_delete">Delete</string>
     <string name="label_yes">Yes</string>
     <string name="label_no">No</string>
