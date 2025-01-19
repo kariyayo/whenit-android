@@ -61,7 +61,6 @@ import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun EventListScreenRoute(
-    onSettingsMenuClick: () -> Unit,
     onLicensesMenuClick: () -> Unit,
     navController: NavController,
     viewModel: EventListViewModel = viewModel(),
@@ -69,7 +68,10 @@ fun EventListScreenRoute(
     val events = viewModel.events.collectAsLazyPagingItems()
     EventListScreen(
         events = events,
-        onSettingsMenuClick = onSettingsMenuClick,
+        onSettingsMenuClick = {
+            navController.navigate(
+                EventListFragmentDirections.actionEventFragmentToSettingsFragment())
+        },
         onLicensesMenuClick = onLicensesMenuClick,
         onEventCreateClick = {
             navController.navigate(

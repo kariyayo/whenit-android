@@ -6,6 +6,13 @@
     app:startDestination="@id/eventListFragment">
 
     <fragment
+        android:id="@+id/settingsFragment"
+        android:name="info.bati11.whenit.ui.app.setting.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+    </fragment>
+
+    <fragment
         android:id="@+id/eventListFragment"
         android:name="info.bati11.whenit.ui.app.event_list.EventListFragment"
         android:label="fragment_event"
@@ -13,6 +20,9 @@
         <action
             android:id="@+id/action_eventFragment_to_eventCreateFragment"
             app:destination="@id/eventCreateFragment" />
+        <action
+            android:id="@+id/action_eventFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventCreateFragment"

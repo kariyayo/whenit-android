@@ -24,10 +24,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.SettingsActivity"
-            android:label="@string/activity_label_settings"
-            android:parentActivityName=".ui.MainActivity" />
-        <activity
             android:name=".ui.LicensesActivity"
             android:label="@string/activity_label_licenses"
             android:parentActivityName=".ui.MainActivity" />
