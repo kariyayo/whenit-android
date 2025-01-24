@@ -23,10 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.LicensesActivity"
-            android:label="@string/activity_label_licenses"
-            android:parentActivityName=".ui.MainActivity" />
     </application>
 
 </manifest>
