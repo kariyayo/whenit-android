@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.Card
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
@@ -26,6 +27,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
@@ -40,14 +42,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -57,43 +59,36 @@ import info.bati11.whenit.ui.theme.WhenitTheme
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
-fun EventListScreenRoute(
+fun EventListScreen(
     onSettingsMenuClick: () -> Unit,
     onLicensesMenuClick: () -> Unit,
-    navController: NavController,
-    viewModel: EventListViewModel = viewModel(),
+    onEventCreateClick: () -> Unit,
+    viewModel: EventListViewModel = hiltViewModel(),
 ) {
     val events = viewModel.events.collectAsLazyPagingItems()
-    EventListScreen(
+    Content(
         events = events,
         onSettingsMenuClick = onSettingsMenuClick,
         onLicensesMenuClick = onLicensesMenuClick,
-        onEventCreateClick = {
-            navController.navigate(
-                EventListFragmentDirections.actionEventFragmentToEventCreateFragment()
-            )
-        },
-        onEventRemoveClick = { event ->
-            navController.navigate(
-                EventListFragmentDirections.actionEventFragmentToEventMenuBottomSheetDialog(
-                    event
-                )
-            )
+        onEventCreateClick = onEventCreateClick,
+        onEventRemove = { event ->
+            viewModel.deleteEvent(event)
         },
     )
 }
 
 @Composable
-fun EventListScreen(
+private fun Content(
     events: LazyPagingItems<Event>,
     onSettingsMenuClick: () -> Unit,
     onLicensesMenuClick: () -> Unit,
     onEventCreateClick: () -> Unit,
-    onEventRemoveClick: (Event) -> Unit,
+    onEventRemove: (Event) -> Unit,
     modifier: Modifier = Modifier,
     now: Long = System.currentTimeMillis(),
 ) {
     val lazyListState = rememberLazyListState()
+    var removeEvent: Event? by remember { mutableStateOf(null) }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -124,10 +119,25 @@ fun EventListScreen(
         } else {
             EventList(
                 events = events,
-                onEventRemoveClick = onEventRemoveClick,
+                onEventRemoveClick = {
+                    removeEvent = it
+                },
                 modifier = modifier.padding(innerPadding),
                 now = now,
                 lazyListState = lazyListState,
+            )
+        }
+        if (removeEvent != null) {
+            RemoveDialog(
+                onConfirm = {
+                    removeEvent?.let {
+                        onEventRemove(it)
+                    }
+                    removeEvent = null
+                },
+                onDismiss = {
+                    removeEvent = null
+                }
             )
         }
     }
@@ -286,6 +296,37 @@ fun EventListItem(
     }
 }
 
+@Composable
+fun RemoveDialog(
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    AlertDialog(
+        title = {
+            Text(stringResource(R.string.dialog_title_delete_confirm))
+        },
+        text = {
+            Text(stringResource(R.string.dialog_text_text_delete_confirm_dialog))
+        },
+        buttons = {
+            Row(
+                modifier = modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End,
+            ) {
+                TextButton(onClick = onDismiss) {
+                    Text(text = stringResource(R.string.label_no))
+                }
+                Spacer(modifier = Modifier.width(12.dp))
+                TextButton(onClick = onConfirm) {
+                    Text(text = stringResource(R.string.label_yes))
+                }
+            }
+        },
+        onDismissRequest = onDismiss
+    )
+}
+
 @Preview(
     showBackground = true
 )
@@ -293,7 +334,7 @@ fun EventListItem(
 fun PreviewEventListScreen() {
     WhenitTheme {
         Surface {
-            EventListScreen(
+            Content(
                 events = flowOf(
                     PagingData.from(
                         listOf(
@@ -305,7 +346,7 @@ fun PreviewEventListScreen() {
                 onSettingsMenuClick = {},
                 onLicensesMenuClick = {},
                 onEventCreateClick = {},
-                onEventRemoveClick = {},
+                onEventRemove = {},
             )
         }
     }

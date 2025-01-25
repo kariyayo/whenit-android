@@ -1,5 +1,6 @@
 package info.bati11.whenit.ui.app.event_create
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,38 +26,41 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
+import com.google.android.material.datepicker.MaterialDatePicker
 import info.bati11.whenit.ui.ValidationError
 import info.bati11.whenit.ui.theme.WhenitTheme
 
 @Composable
-fun EventCreateScreenRoute(
-    navController: NavController,
-    onClickDateField: (FocusState, EventCreateViewModel) -> Unit,
-    viewModel: EventCreateViewModel = viewModel()
+fun EventCreateScreen(
+    onClose: () -> Unit,
+    onCompleted: () -> Unit,
+    viewModel: EventCreateViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     if (uiState.isCompleted) {
-        navController.navigate(EventCreateFragmentDirections.actionEventCreateFragmentToEventFragment())
+        onCompleted()
     }
-    EventCreateScreen(
+    val activity = LocalContext.current as AppCompatActivity
+    Content(
         uiState = uiState,
         onClickDateField = { focusState ->
-            onClickDateField(focusState, viewModel)
+            if (focusState.hasFocus) {
+                val datePicker = initDatePicker(viewModel::inputDate)
+                datePicker.show(activity.supportFragmentManager, "datePicker")
+            }
         },
         onSave = viewModel::onSaveClicked,
-        onClose = {
-            navController.navigate(EventCreateFragmentDirections.actionEventCreateFragmentToEventFragment())
-        }
+        onClose = onClose,
     )
 }
 
 @Composable
-fun EventCreateScreen(
+private fun Content(
     uiState: EventCreateViewModel.UiState,
     onClickDateField: (FocusState) -> Unit,
     onSave: (titleText: String, dateInMillis: Long?) -> Unit,
@@ -108,6 +112,14 @@ fun EventCreateScreen(
     }
 }
 
+private fun initDatePicker(
+    onCompleted: (Long) -> Unit
+): MaterialDatePicker<Long> {
+    val picker = MaterialDatePicker.Builder.datePicker().build()
+    picker.addOnPositiveButtonClickListener(onCompleted)
+    return picker
+}
+
 @Preview(
     showBackground = true
 )
@@ -115,7 +127,7 @@ fun EventCreateScreen(
 fun PreviewEventCreateScreen() {
     WhenitTheme {
         Surface {
-            EventCreateScreen(
+            Content(
                 uiState = EventCreateViewModel.UiState(),
                 onClickDateField = {},
                 onSave = { _, _ -> },
