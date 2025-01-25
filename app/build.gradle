@@ -2,9 +2,9 @@ plugins {
     alias libs.plugins.agp
     alias libs.plugins.kotlin.android
     alias libs.plugins.kotlin.parcelize
+    alias libs.plugins.kotlin.serialization
     alias libs.plugins.kotlin.kapt
     alias libs.plugins.hilt.android
-    alias libs.plugins.androidx.navigation.safeargs
     alias libs.plugins.android.junit5
     alias libs.plugins.license.tools
 }
@@ -81,12 +81,12 @@ dependencies {
 
     implementation libs.kotlin.std.lib.jdk7
     implementation libs.kotlinx.coroutines.core
+    implementation libs.kotlinx.serialization.json
     implementation libs.androidx.appcompat
     implementation libs.androidx.core.ktx
     implementation libs.androidx.constraintlayout
     implementation libs.androidx.legacy.support.v4
-    implementation libs.androidx.navigation.fragment.ktx
-    implementation libs.androidx.navigation.ui.ktx
+    implementation libs.compose.navigation
     implementation libs.androidx.lifecycle.viewmodel.ktx
     implementation libs.androidx.lifecycle.viewmodel.savedstate
     implementation libs.androidx.lifecycle.livedata.ktx
@@ -106,6 +106,7 @@ dependencies {
 
     implementation libs.hilt.android
     implementation libs.hilt.work
+    implementation libs.hilt.compose.navigation
     kapt libs.hilt.compiler
     androidTestImplementation libs.hilt.android.testing
     kaptAndroidTest libs.hilt.compiler

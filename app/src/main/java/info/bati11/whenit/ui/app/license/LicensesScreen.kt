@@ -15,22 +15,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.navigation.NavController
 import info.bati11.whenit.ui.theme.WhenitTheme
 
 @Composable
-fun LicensesRoute(
-    navController: NavController,
+fun LicensesScreen(
+    onBackClick: () -> Unit,
 ) {
-    LicensesScreen(
-        onBackClick = {
-            navController.popBackStack()
-        },
+    Content(
+        onBackClick = onBackClick
     )
 }
 
 @Composable
-fun LicensesScreen(
+private fun Content(
     onBackClick: () -> Unit,
     url: String = "file:///android_asset/licenses.html",
 ) {
@@ -69,7 +66,7 @@ fun LicensesScreen(
 fun PreviewLicensesScreen() {
     WhenitTheme {
         Surface {
-            LicensesScreen(
+            Content(
                 onBackClick = {}
             )
         }

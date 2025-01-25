@@ -23,22 +23,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import info.bati11.whenit.ui.theme.WhenitTheme
 
 @Composable
-fun SettingsRoute(
-    navController: NavController,
-    viewModel: SettingsViewModel = viewModel(),
+fun SettingsScreen(
+    onBackClick: () -> Unit,
+    viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    SettingsScreen(
+    Content(
         uiState = uiState,
-        onBackClick = {
-            navController.popBackStack()
-        },
+        onBackClick = onBackClick,
         changeNotification = viewModel::saveNotification,
         changeNotificationDay = viewModel::saveNotificationDay,
         changeNotificationWeek = viewModel::saveNotificationWeek,
@@ -47,7 +44,7 @@ fun SettingsRoute(
 }
 
 @Composable
-fun SettingsScreen(
+private fun Content(
     uiState: SettingsViewModel.UiState,
     onBackClick: () -> Unit,
     changeNotification: (Boolean) -> Unit,
@@ -143,7 +140,7 @@ fun SettingsScreen(
 fun PreviewEventCreateScreen() {
     WhenitTheme {
         Surface {
-            SettingsScreen(
+            Content(
                 uiState = SettingsViewModel.UiState(
                     isEnableNotification = true,
                     isEnableNotificationDay = true,

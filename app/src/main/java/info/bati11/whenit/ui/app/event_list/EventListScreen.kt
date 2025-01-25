@@ -49,8 +49,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -60,27 +59,18 @@ import info.bati11.whenit.ui.theme.WhenitTheme
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
-fun EventListScreenRoute(
-    navController: NavController,
-    viewModel: EventListViewModel = viewModel(),
+fun EventListScreen(
+    onSettingsMenuClick: () -> Unit,
+    onLicensesMenuClick: () -> Unit,
+    onEventCreateClick: () -> Unit,
+    viewModel: EventListViewModel = hiltViewModel(),
 ) {
     val events = viewModel.events.collectAsLazyPagingItems()
-    EventListScreen(
+    Content(
         events = events,
-        onSettingsMenuClick = {
-            navController.navigate(
-                EventListFragmentDirections.actionEventFragmentToSettingsFragment())
-        },
-        onLicensesMenuClick = {
-            navController.navigate(
-                EventListFragmentDirections.actionEventFragmentToLicensesFragment()
-            )
-        },
-        onEventCreateClick = {
-            navController.navigate(
-                EventListFragmentDirections.actionEventFragmentToEventCreateFragment()
-            )
-        },
+        onSettingsMenuClick = onSettingsMenuClick,
+        onLicensesMenuClick = onLicensesMenuClick,
+        onEventCreateClick = onEventCreateClick,
         onEventRemove = { event ->
             viewModel.deleteEvent(event)
         },
@@ -88,7 +78,7 @@ fun EventListScreenRoute(
 }
 
 @Composable
-fun EventListScreen(
+private fun Content(
     events: LazyPagingItems<Event>,
     onSettingsMenuClick: () -> Unit,
     onLicensesMenuClick: () -> Unit,
@@ -344,7 +334,7 @@ fun RemoveDialog(
 fun PreviewEventListScreen() {
     WhenitTheme {
         Surface {
-            EventListScreen(
+            Content(
                 events = flowOf(
                     PagingData.from(
                         listOf(
