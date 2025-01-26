@@ -2,7 +2,7 @@ package info.bati11.whenit.domain
 
 import android.os.Parcelable
 import info.bati11.whenit.domain.EventDate.toEpochDay
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import org.threeten.bp.LocalDate
 import org.threeten.bp.temporal.ChronoUnit
 
